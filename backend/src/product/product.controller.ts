@@ -1,0 +1,154 @@
+import {
+  Body,
+  Controller,
+  DefaultValuePipe,
+  Delete,
+  Get,
+  HttpCode,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+  Query,
+  Redirect,
+  UseGuards,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
+import { ProductService } from './product.service';
+
+import { ProductDto } from 'src/product/product.dto';
+import { RolesGuard } from 'src/RolesGuard';
+import { Product } from 'src/entity/product.entity';
+import { Operator } from './const';
+import {
+  createProductSchema,
+  ProductRequest,
+  updateProductSchema,
+} from 'src/Request/productRequest';
+import { ZodValidationPipe } from 'src/zod-validation/zod-validation.pipe';
+import { ResponseSuccessDto } from 'src/Response/ResponseSuccessDto';
+import { ResponseResultListDto } from 'src/Response/ResponseResultListDto';
+import { ResponseErrorDto } from 'src/Response/ResponseErrorDto';
+
+@Controller('product')
+@UseGuards(RolesGuard)
+export class ProductController {
+  // @Get(':id')
+  // findAll(@Param('id') id: string): string {
+  //   // console.log("id:" + id);
+  //   return `This action returns a #${id} cat`;
+  // }
+  constructor(private productService: ProductService) {}
+
+  // @Get('docs')
+  // @Redirect('https://docs.nestjs.com', 302)
+  //  getDocs(@Query('version') version) {
+  //   console.log("version" + version);
+  //   if (version && version === '5') {
+  //     return { url: 'https://docs.nestjs.com/v5/' };
+  //   }
+  // }
+
+  @Post()
+  @HttpCode(201)
+  //@UsePipes(new ZodValidationPipe(createProductSchema))
+  //  @Roles(['admin'])
+  @UsePipes(new ValidationPipe())
+  async create(
+    @Body() requestProduct: ProductRequest,
+  ): Promise<ResponseSuccessDto> {
+    console.log(
+      `productRequest:${JSON.stringify(JSON.stringify(requestProduct))}`,
+    );
+
+    const generatedId = await this.productService.insert(requestProduct);
+
+    return new ResponseSuccessDto(201, 'Insert successfull', generatedId);
+  }
+
+  @Get('findall')
+  async findAll(): Promise<ResponseResultListDto> {
+    console.log('findAll:');
+
+    const result = await this.productService.findAll();
+    console.log('result');
+    console.log(result);
+    return new ResponseResultListDto(result.length, result);
+  }
+
+  //   @Get(':id')
+  //  // @UsePipes(new ZodValidationPipe())
+  //   findProductById(@Param('id', new DefaultValuePipe('1'), ParseIntPipe) id: number){
+  //     console.log("id:" + id);
+  //     return `This action returns a #${id} cat`;
+  //   }
+
+  @Get(':id')
+  async findProductBy(
+    @Param('id', new DefaultValuePipe('1'), ParseIntPipe) id: number,
+  ): Promise<Product | ResponseErrorDto> {
+    console.log('id:' + id);
+    const product: Product = await this.productService.findOne(id);
+    //   const result = JSON.parse(JSON.stringify(product));
+    if (product == null) {
+      return new ResponseErrorDto(404, 'Data not found');
+    }
+
+    console.log(`product: ${JSON.stringify(product)}`);
+
+    return product;
+  }
+
+  @Get('searchList')
+  async searchList(
+    @Query('productName') productName: string,
+    @Query('price', new DefaultValuePipe('0')) price: number,
+    @Query('operator') operator: string,
+  ): Promise<ResponseResultListDto> {
+    console.log('searchList:' + productName);
+
+    const operatorEnum: Operator | undefined =
+      Operator[operator as keyof typeof Operator];
+
+    const productLst = await this.productService.searchProduct(
+      productName,
+      price,
+      operatorEnum,
+    );
+    //   const result = JSON.parse(JSON.stringify(product));
+    console.log(`product: ${JSON.stringify(productLst)}`);
+    return new ResponseResultListDto(productLst.length, productLst);
+    //return productLst;
+  }
+
+  @Put()
+  @HttpCode(201)
+  //@UsePipes(new ZodValidationPipe(updateProductSchema))
+  @UsePipes(new ValidationPipe())
+  async update(
+    @Body() productRequest: ProductRequest,
+  ): Promise<ResponseSuccessDto> {
+    //   const result = JSON.parse(JSON.stringify(product));
+    //copy data to entity
+    console.log(
+      `productRequest:${JSON.stringify(JSON.stringify(productRequest))}`,
+    );
+
+    const product = await this.productService.update(productRequest);
+    console.log('update success product');
+
+    return new ResponseSuccessDto(201, 'Update successfull', 1);
+  }
+
+  @Delete(':id')
+  @HttpCode(201)
+  async delete(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<ResponseSuccessDto> {
+    const result = await this.productService.delete(id);
+    console.log('delete success product');
+
+    return new ResponseSuccessDto(201, 'Remove successfull', result.affected);
+  }
+}
