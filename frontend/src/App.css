@@ -1,0 +1,512 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.list {
+  list-style: none; /* Removes bullets */
+  padding: 0;
+  margin: 0;
+}
+
+.list-item {
+  display: flex; /* Align items in a row */
+  align-items: center; /* Vertically align image and text */
+  gap: 10px; /* Add space between the image and text */
+  margin-bottom: 10px; /* Add spacing between list items */
+}
+
+.list-item img {
+  width: 50px; /* Set image width */
+  height: 50px; /* Set image height */
+  object-fit: cover; /* Ensure image fits within dimensions */
+  border-radius: 5px; /* Optional: Add rounded corners */
+}
+
+.list-item p {
+  margin: 0; /* Remove default paragraph margin */
+}
+
+.picture {
+  width: 50px; /* Set image width */
+  height: 50px; /* Set image height */
+}
+.picture-active {
+  width: 100px; /* Set image width */
+  height: 100px; /* Set image height */
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap; /* Cho phép xuống hàng */
+  gap: 16px; /* Khoảng cách giữa các sản phẩm */
+  justify-content: space-evenly; /* Căn đều các sản phẩm */
+}
+.product-item {
+  flex: 1 1 calc(20% - 10px); /* Độ rộng khoảng 25% màn hình trừ đi khoảng cách */
+  max-width: calc(20% - 16px);
+  background: #f0f0f0;
+  padding: 16px;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .product-item {
+    flex: 1 1 calc(50% - 16px); /* Mỗi hàng hiển thị 2 sản phẩm trên màn hình nhỏ */
+  }
+}
+
+@media (max-width: 480px) {
+  .product-item {
+    flex: 1 1 100%; /* Mỗi hàng hiển thị 1 sản phẩm trên màn hình rất nhỏ */
+  }
+}
+
+.img_cart {
+  width: 150px;
+  height: auto;
+  object-fit: cover; /* Cắt và giữ trọng tâm */
+  border-radius: 8px; /* Bo góc nhẹ nếu cần */
+}
+
+.tree {
+  list-style: decimal; /* Numbered items */
+  padding-left: 20px; /* Top-level indentation */
+  margin: 0; /* Reset margin */
+}
+
+.tree ol {
+  text-align: left;
+  padding-left: 10px; /* Indentation for nested levels */
+  margin: 0; /* Reset margin */
+}
+
+.tree li {
+  margin: 5px 0; /* Vertical spacing between items */
+  font-size: 14px; /* Adjust text size if needed */
+}
+
+.tree ol ol li {
+  padding-left: 10px; /* Additional indentation for deeper levels */
+}
+.counter {
+  background-color: yellow;
+  width: 100px;
+  height: 100px;
+}
+
+.fancy {
+  border-color: green;
+  border-style: solid;
+}
+.contain_list {
+  margin-left: 10px;
+}
+.contain_input {
+  margin-left: 10px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+.listTable {
+  width: 99%;
+  border: 1px solid;
+  padding: 0px;
+}
+.listTable .list_item {
+  padding: 5px;
+}
+.listTable .item_left {
+  text-align: left;
+}
+.listTable .item_right {
+  text-align: right;
+}
+.input-fit-column {
+  width: 100%;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+/* Container for the form */
+.form-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+/* Title of the form */
+.form-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Panel that wraps around the form elements */
+.form-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Each row that contains two items (label/input or other) */
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* Each form item (label, input, etc.) */
+.form-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Styling for labels */
+.form-item label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+/* Styling for inputs, selects, and other form elements */
+.form-item input,
+.form-item select {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+.required {
+  background-color: yellow;
+}
+
+/* Thay đổi kiểu cho form-row khi chứa button */
+.form-row.button-row {
+  display: block; /* Loại bỏ ảnh hưởng của flex cho vùng chứa button */
+  text-align: center; /* Căn giữa button */
+}
+/* Styling for buttons */
+.form-row .btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  display: inline-block; /* Đảm bảo nút có độ rộng chỉ vừa đủ với nội dung */
+  width: auto; /* Đảm bảo chiều rộng tự động phù hợp với nội dung */
+  min-width: 100px; /* Đặt độ rộng tối thiểu cho nút */
+  text-align: center; /* Căn giữa văn bản trong nút */
+  white-space: nowrap; /* Ngăn việc xuống dòng trong nút */
+}
+
+.form-row .btn:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.form-row .btn:last-child {
+  background-color: #dc3545;
+}
+
+.form-row .btn:last-child:hover {
+  background-color: #c82333;
+}
+.form-item-error {
+  text-align: left;
+  color: red;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.container_select_product {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2 cột với kích thước phù hợp */
+  grid-template-areas: "left-content content";
+  padding: 10px;
+  gap: 10px;
+}
+
+.container_select_product .left-content .img_cart {
+  width: 100%;
+  height: auto; /* Set image height */
+  object-fit: cover; /* Ensure image fits within dimensions */
+  border-radius: 5px; /* Optional: Add rounded corners */
+}
+.container_select_product .content .item_title {
+  text-align: left;
+  font-size: 24px;
+}
+.item_name {
+  text-align: left;
+  font-size: 20px;
+}
+.item_price {
+  text-align: left;
+  font-size: 18px;
+}
+.item_add {
+  text-align: left;
+}
+
+.btn_add_to_bag {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  display: inline-block; /* Đảm bảo nút có độ rộng chỉ vừa đủ với nội dung */
+  width: auto; /* Đảm bảo chiều rộng tự động phù hợp với nội dung */
+  min-width: 100px; /* Đặt độ rộng tối thiểu cho nút */
+  text-align: center; /* Căn giữa văn bản trong nút */
+  white-space: nowrap; /* Ngăn việc xuống dòng trong nút */
+  background-color: #007bff;
+}
+.text_align_left {
+  text-align: left;
+}
+
+.button {
+  padding: 10px;
+  font-size: 20px;
+  background-color: #f0f0f0;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.deleteButton {
+  padding: 10px;
+  font-size: 20px;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.header-banner {
+  background-color: #007bff;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.main-layout {
+  display: grid;
+  /*  grid-template-columns: 100px auto auto 100px;*/
+  grid-template-rows: auto 1fr auto;
+  grid-gap: 10px;
+  height: 100vh;
+}
+.main-header {
+  grid-row: 1;
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+.main-content {
+  grid-row: 2;
+  padding: 10px;
+  overflow-y: auto;
+}
+.main-footer {
+  grid-row: 3;
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.main-header-container-flex {
+  display: flex;
+  justify-content: space-between; /* Đảm bảo có khoảng cách giữa nhóm bên trái và bên phải */
+  align-items: center; /* Căn giữa các phần tử theo chiều dọc */
+  padding: 10px; /* Khoảng cách giữa container và các phần tử */
+}
+.left-group {
+  display: flex;
+}
+.right-group {
+  display: flex;
+}
+.main-header-container-flex .item {
+  margin-left: 10px;
+}
+.item_price {
+  font-weight: bold;
+}
+
+.container_popup {
+  display: grid;
+  /*  grid-template-columns: 100px auto auto 100px;*/
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: auto auto;
+  grid-gap: 10px;
+}
+.container_popup .header {
+  grid-column: 1 / -1;
+}
+.container_popup .left-content {
+  grid-column: 1;
+  grid-row: 2;
+}
+.container_popup .right-content {
+  grid-column: 2;
+  grid-row: 2;
+}
+.container_popup .view-to-bag {
+  grid-column: 1 / -1;
+}
+
+.container_bag {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: auto auto;
+  grid-gap: 10px;
+}
+.container_bag .header {
+  grid-column: 1 / -1;
+}
+.row-item {
+  display: flex;
+  flex-direction: row;
+}
+
+.empty_message {
+  color: red;
+}
+.action-row {
+  grid-column: 1 / -1;
+}
+
+.button_shopping {
+  background-color: #007bff;
+}
+.text_align_center {
+  text-align: center;
+}
+
+.column-item {
+  padding: 5px;
+}
+.group_quantity {
+  display: flex;
+  flex-direction: row;
+}
+.item-small {
+  width: 30px;
+}
+.sub-total {
+  font-weight: bold;
+}
+.title {
+  font-size: 18px;
+  font-weight: bold;
+}
+.sub-title {
+  font-size: 14px;
+  font-weight: bold;
+}
+.total {
+  font-size: 16px;
+  font-weight: bold;
+}
+.max-full-width {
+  width: 100%;
+}
+
+.list-table {
+  display: flex;
+  flex-direction: column; /* Chia các hàng theo chiều dọc */
+  width: 100%;
+}
+
+.list-table > .list-row {
+  display: flex;
+  flex-direction: row; /* Chuyển từ column sang row để xếp theo chiều ngang */
+  justify-content: flex-start;
+  padding: 0px 0;
+}
+.list-item {
+  padding: 5px;
+  text-align: left;
+  border: 1px solid #ddd; /* Viền của các item */
+}
+.selected-list-item {
+  padding: 5px;
+  text-align: left;
+  border: 1px solid #ddd; /* Viền của các item */
+  background-color: #e0f7fa;
+}
+
+.list-header {
+  padding: 5px;
+  text-align: left;
+  border: 1px solid #ddd;
+  /* background-color: #6c757d;*/
+  background-color: #e9ecef;
+}
+.list-sub-header {
+  padding: 5px;
+  text-align: left;
+  border: 1px solid #ddd;
+  /* background-color: #6c757d;*/
+  background-color: #f5f5f5;
+}
+.flex-grow {
+  flex-grow: 1;
+}
+.list-child-row {
+  display: flex;
+  flex-direction: row; /* Đảm bảo các dòng con được xếp theo chiều dọc */
+  margin-left: 20px; /* Đẩy các dòng con sang phải để tạo không gian */
+}
+
+.list-child-row .list-item {
+  padding: 5px;
+  border: 1px solid #ddd;
+  margin-bottom: 5px;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
