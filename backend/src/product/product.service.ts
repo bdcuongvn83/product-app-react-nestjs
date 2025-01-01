@@ -14,6 +14,7 @@ import { Operator } from './const';
 import { ProductDto } from './product.dto';
 import { ResponseSuccessDto } from 'src/Response/ResponseSuccessDto';
 import { ProductRequest } from 'src/Request/productRequest';
+import { FilemanageService } from 'src/filemanage/filemanage.service';
 
 @Injectable()
 export class ProductService {
@@ -21,6 +22,7 @@ export class ProductService {
     @InjectRepository(Product)
     private productRepository: Repository<Product>,
     private dataSource: DataSource,
+    private fileManager: FilemanageService,
   ) {}
 
   // private readonly products: Product[] = [
@@ -101,12 +103,24 @@ export class ProductService {
    * insert new product
    * @param entity
    */
-  async insert(productReq: ProductRequest): Promise<number> {
+  async insert(
+    productReq: ProductRequest,
+    file: Express.Multer.File,
+  ): Promise<number> {
+    //insert file
+    //update docId to Product, insert Product
+    let docId: number;
+
+    if (file != null) {
+      const newFile = await this.fileManager.saveFile(file);
+      docId = newFile.id;
+    }
     const entity = new Product();
     entity.productName = productReq.productName;
     entity.price = productReq.price;
     entity.description = productReq.description;
 
+    entity.docId = docId;
     const result: InsertResult = await this.productRepository.insert(entity);
     // Access the generated id from the raw property
     const generatedId = result.identifiers[0]?.id;

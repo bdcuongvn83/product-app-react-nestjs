@@ -1,6 +1,5 @@
 import { Type } from 'class-transformer';
 import { IsInt, IsOptional, IsString, ValidateIf } from 'class-validator';
-import { Int32 } from 'typeorm';
 import { z } from 'zod';
 
 export class ProductRequest {

@@ -8,10 +8,18 @@ import { CustomeValidationPipe } from './custome-validation/custome-validation.p
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { Product } from './entity/product.entity';
-
+import { FilemanageModule } from './filemanage/filemanage.module';
+import { FileEntity } from './entity/file.entity';
+import { OrdersController } from './orders/orders.controller';
+import { OrdersService } from './orders/orders.service';
+import { OrdersModule } from './orders/orders.module';
+import { Order } from './entity/order.entity';
+import { OrderItem } from './entity/orderitem.entity';
 
 @Module({
-  imports: [ProductModule,
+  imports: [
+    ProductModule,
+    OrdersModule,
 
     TypeOrmModule.forRoot({
       type: 'mysql',
@@ -20,14 +28,16 @@ import { Product } from './entity/product.entity';
       username: 'root',
       password: '123456',
       database: 'company_db',
-      entities: [Product],
+      entities: [Product, FileEntity, Order, OrderItem],
       synchronize: true,
     }),
+
+    FilemanageModule,
+
+    OrdersModule,
   ],
-  controllers: [AppController  ],
-  providers: [{provide: APP_PIPE,
-    useClass: ValidationPipe,}
-  ]
+  controllers: [AppController],
+  providers: [{ provide: APP_PIPE, useClass: ValidationPipe }],
 })
 export class AppModule {
   constructor(private dataSource: DataSource) {}

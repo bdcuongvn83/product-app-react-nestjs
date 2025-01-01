@@ -21,6 +21,9 @@ export class Product {
   @Column('int', { nullable: true })
   price: number;
 
+  @Column('int', { nullable: true })
+  docId: number;
+
   @UpdateDateColumn()
   updateDateTime: Date;
 }

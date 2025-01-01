@@ -11,7 +11,9 @@ import {
   Put,
   Query,
   Redirect,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -21,25 +23,22 @@ import { ProductDto } from 'src/product/product.dto';
 import { RolesGuard } from 'src/RolesGuard';
 import { Product } from 'src/entity/product.entity';
 import { Operator } from './const';
-import {
-  createProductSchema,
-  ProductRequest,
-  updateProductSchema,
-} from 'src/Request/productRequest';
+import { ProductRequest } from 'src/Request/productRequest';
 import { ZodValidationPipe } from 'src/zod-validation/zod-validation.pipe';
 import { ResponseSuccessDto } from 'src/Response/ResponseSuccessDto';
 import { ResponseResultListDto } from 'src/Response/ResponseResultListDto';
 import { ResponseErrorDto } from 'src/Response/ResponseErrorDto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('product')
 @UseGuards(RolesGuard)
 export class ProductController {
+  constructor(private productService: ProductService) {}
   // @Get(':id')
   // findAll(@Param('id') id: string): string {
   //   // console.log("id:" + id);
   //   return `This action returns a #${id} cat`;
   // }
-  constructor(private productService: ProductService) {}
 
   // @Get('docs')
   // @Redirect('https://docs.nestjs.com', 302)
@@ -55,22 +54,25 @@ export class ProductController {
   //@UsePipes(new ZodValidationPipe(createProductSchema))
   //  @Roles(['admin'])
   @UsePipes(new ValidationPipe())
+  @UseInterceptors(FileInterceptor('file'))
   async create(
     @Body() requestProduct: ProductRequest,
+    @UploadedFile() file: Express.Multer.File,
   ): Promise<ResponseSuccessDto> {
     console.log(
       `productRequest:${JSON.stringify(JSON.stringify(requestProduct))}`,
     );
 
-    const generatedId = await this.productService.insert(requestProduct);
+    console.log('File upload:', file);
+    console.log('Product data:', requestProduct);
+
+    const generatedId = await this.productService.insert(requestProduct, file);
 
     return new ResponseSuccessDto(201, 'Insert successfull', generatedId);
   }
 
   @Get('findall')
   async findAll(): Promise<ResponseResultListDto> {
-    console.log('findAll:');
-
     const result = await this.productService.findAll();
     console.log('result');
     console.log(result);
