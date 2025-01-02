@@ -110,7 +110,7 @@ export default function ProductListContext() {
             {products.map((item, index) => (
               <tr key={index + 1}>
                 <td style={{ width: "20px" }}>
-                  <span>{index}</span>
+                  <span>{index + 1}</span>
                 </td>
                 <td style={{ width: "100px" }}>
                   <FileDownloadDisplay

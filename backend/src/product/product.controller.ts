@@ -86,7 +86,7 @@ export class ProductController {
   //     return `This action returns a #${id} cat`;
   //   }
 
-  @Get(':id')
+  @Get('find/:id')
   async findProductBy(
     @Param('id', new DefaultValuePipe('1'), ParseIntPipe) id: number,
   ): Promise<Product | ResponseErrorDto> {
@@ -105,21 +105,26 @@ export class ProductController {
   @Get('searchList')
   async searchList(
     @Query('productName') productName: string,
-    @Query('price', new DefaultValuePipe('0')) price: number,
-    @Query('operator') operator: string,
+    @Query('price', new DefaultValuePipe(0), ParseIntPipe) price: number,
+    @Query('operator', new DefaultValuePipe(0), ParseIntPipe) operator: number,
   ): Promise<ResponseResultListDto> {
+    //  let price = 0;
+
     console.log('searchList:' + productName);
+    //const operatorEnum: Operator = operator as Operator;//cai nay cung dung
+    const operatorEnum: Operator | undefined = Object.values(Operator).includes(
+      operator,
+    )
+      ? (operator as Operator)
+      : undefined;
 
-    const operatorEnum: Operator | undefined =
-      Operator[operator as keyof typeof Operator];
-
+    console.log('operatorEnum:', operatorEnum);
     const productLst = await this.productService.searchProduct(
       productName,
       price,
       operatorEnum,
     );
-    //   const result = JSON.parse(JSON.stringify(product));
-    console.log(`product: ${JSON.stringify(productLst)}`);
+
     return new ResponseResultListDto(productLst.length, productLst);
     //return productLst;
   }

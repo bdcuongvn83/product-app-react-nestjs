@@ -35,7 +35,7 @@ export default function ProductItemSelect() {
     return <h1>No product selected</h1>;
   }
 
-  console.log(`Product ID: ${id}`);
+  //console.log(`Product ID: ${id}`);
 
   return (
     <div className="container_select_product">

@@ -3,6 +3,7 @@ import ProductList from "./ProductList.js";
 import { ProductsContext } from "../Product/ProductsContext.js";
 import { useNavigate, useLocation } from "react-router-dom";
 
+import SearchIcon from "@mui/icons-material/Search";
 //const initialTasks = { products: [] };
 
 //ProductsCartContext
@@ -22,6 +23,30 @@ export default function ProductListApp() {
     setProductName((prevState) => e.target.value);
   }
 
+  async function searchProduct(e) {
+    e.preventDefault();
+    try {
+      const params = {
+        productName: productName,
+        // param2: 'value2',
+      };
+
+      const queryString = new URLSearchParams(params).toString();
+      const url = `/api/product/searchList?${queryString}`;
+
+      const response = await fetch(url); // URL của API
+
+      const result = await response.json();
+
+      //setProducts(result.data);
+      //setLoading(false);
+      const result2 = result.data.map((t) => ({ ...t, done: true }));
+      setProducts((prestate) => result2);
+      //dispatch({ type: "replace", payload: result2 }); // Dùng dispatch để cập nhật reducer
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  }
   // Fetch dữ liệu từ API NestJS
   useEffect(() => {
     const fetchData = async () => {
@@ -48,24 +73,21 @@ export default function ProductListApp() {
     <ProductsContext.Provider value={products}>
       <>
         <h1>PRODUCT SHOP</h1>
-        <input
-          type="text"
-          className="required"
-          name="productName"
-          value={productName}
-          required
-          onChange={handleChange}
-        />
+        <div className="container-search">
+          <input
+            type="text"
+            className="input-search"
+            name="productName"
+            value={productName}
+            onChange={handleChange}
+            placeholder="Search at supermarket"
+          />
 
-        <div className="contain_input">
-          <button
-            className="button register"
-            onClick={() => {
-              alert("search");
-            }}
-          >
-            {" "}
+          <button className="btn register" onClick={(e) => searchProduct(e)}>
+            <SearchIcon></SearchIcon>
           </button>
+        </div>
+        <div className="margin-top">
           <ProductList></ProductList>
         </div>
       </>

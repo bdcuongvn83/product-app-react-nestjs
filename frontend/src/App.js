@@ -176,7 +176,11 @@ function App() {
           <div className="main-footer">
             <div className="main-header-container-flex">
               <div className="left-group">
-                <div className="profile-github">github</div>
+                <div className="profile-github">
+                  <a href="https://github.com/bdcuongvn83/product-app-react-nestjs">
+                    Github
+                  </a>
+                </div>
               </div>
               <div className="title">COPY RIGHT 2024 - DUC CUONG BUI</div>
             </div>

@@ -67,6 +67,9 @@
   gap: 16px; /* Khoảng cách giữa các sản phẩm */
   justify-content: space-evenly; /* Căn đều các sản phẩm */
 }
+.margin-top {
+  margin-top: 5px;
+}
 .product-item {
   flex: 1 1 calc(20% - 10px); /* Độ rộng khoảng 25% màn hình trừ đi khoảng cách */
   max-width: calc(20% - 16px);
@@ -500,6 +503,21 @@
   padding: 5px;
   border: 1px solid #ddd;
   margin-bottom: 5px;
+}
+
+.container-search {
+  display: flex;
+  flex-direction: row; /* Đảm bảo các dòng con được xếp theo chiều dọc */
+  margin-left: 20px; /* Đẩy các dòng con sang phải để tạo không gian */
+}
+
+.input-search {
+  width: 200px; /* Width khi focus */
+  padding: 8px;
+  transition: width 0.3s ease; /* Hiệu ứng tăng width trong 0.3s */
+}
+.input-search:focus {
+  width: 400px; /* Width khi focus */
 }
 
 @keyframes App-logo-spin {

@@ -62,14 +62,45 @@ export class ProductService {
     const queryBuilder: SelectQueryBuilder<Product> = this.dataSource.manager
       .createQueryBuilder()
       //.createQueryBuilder('user')
-      .select(['product.id', 'product.name', 'product.price'])
+      .select(['product'])
       .from(Product, 'product')
       // .innerJoin('order', 'order', 'order.userId = user.id')
       .where('product.productname like :productname', {
         productname: `%${productname}%`,
-      })
-      // .andWhere('order.status = :status', { status: 'completed' })
-      .orderBy('product.productname', 'ASC');
+      });
+    // Thêm điều kiện cho price nếu có
+    if (price !== undefined && price !== 0) {
+      // Điều kiện cho price sử dụng enum Operator
+
+      switch (operator) {
+        case Operator.equal:
+          console.log('dieu kien equal');
+          queryBuilder.andWhere(`product.price = :price`, {
+            price,
+          });
+          break;
+        case Operator.greater:
+          console.log('dieu kien greater');
+          queryBuilder.andWhere('product.price > :price', { price });
+          break;
+        case Operator.less:
+          queryBuilder.andWhere('product.price < :price', { price });
+          break;
+        case Operator.greaterthan:
+          queryBuilder.andWhere('product.price >= :price', { price });
+          break;
+        case Operator.lessthan:
+          queryBuilder.andWhere('product.price <= :price', { price });
+          break;
+        default:
+          //equal
+          console.log('dieu kien default');
+          queryBuilder.andWhere('product.price = :price', { price });
+          break;
+      }
+    }
+
+    queryBuilder.orderBy('product.productname', 'ASC');
 
     console.log(`Debug sql :  ${queryBuilder.getSql()}`);
 
