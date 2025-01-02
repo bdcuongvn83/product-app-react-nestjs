@@ -9,62 +9,68 @@ import { Add, Remove, Delete } from "@mui/icons-material";
 import FileDownloadDisplay from "../File/FileDownloadDisplay";
 
 export default function ProductItemBag() {
-  //const products = useContext(ProductsContext);
-
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-  const cart = useContext(ProductsCartContext);
+  // const cart = useContext(ProductsCartContext);
+  // const dispatch = useContext(ProductsCartContext);
+  const { cart, dispatch } = useContext(ProductsCartContext);
+  // console.log("ProductItemBag begin");
+  // console.log("ProductItemBag cart:");
+  // console.log(cart);
 
-  //const { products } = location || location.state || {}; // Truyền dữ liệu qua state
-  //const product = state || {}; // Lấy dữ liệu sản phẩm từ state
+  const [products, setProducts] = useState([]);
 
-  console.log(`ProductItemBag cart `);
-  console.log(cart);
-
-  //const initialProducts = cart.items || [];
-  const [products, setProducts] = useState(
-    //initialProducts.map((item) => {
-    initProductsFromCart(cart)
-  );
-  const [sumSubTotal, setSumSubTotal] = useState(calSumSubTotal());
-
-  const [delivery, setDelivery] = useState(calDelivery());
-  const [sumTotal, setSumTotal] = useState(calSumTotal());
+  const [sumSubTotal, setSumSubTotal] = useState(0);
+  const [delivery, setDelivery] = useState(0);
+  const [sumTotal, setSumTotal] = useState(0);
 
   useEffect(() => {
-    const sumSubTotal = calSumSubTotal();
+    console.log("XXXXXXXXXXXXXXXXXXX:useEffect cart.items changed");
+
+    setProducts((prevProducts) => initProductsFromCart(cart));
+    // console.log("Products:", products);
+
+    const sumSubTotal = calSumSubTotal(cart.items);
     const delivery = calDelivery(sumSubTotal);
 
-    setSumSubTotal(sumSubTotal);
-    setDelivery(delivery);
-    setSumTotal(calSumTotal(sumSubTotal, delivery));
-  }, [products]);
+    setSumSubTotal((prestate) => sumSubTotal);
+    setDelivery((prestate) => delivery);
+    setSumTotal((prestate) => calSumTotal(sumSubTotal, delivery));
+  }, [cart.items]);
 
   function initProductsFromCart(cart) {
-    console.log("initProductsFromCart cart items:");
-    console.log(cart.items);
+    //console.log("initProductsFromCart cart items:");
+    if (cart.items.length == 0) {
+      //console.log("cart.items EMPTY!");
+      return [];
+    }
+    //console.log(cart.items);
     return cart.items.map((item) => {
       const subTotalValue = item.quantity * item.price;
       return { ...item, subTotal: subTotalValue };
     });
   }
+
   const handleAdd = (e, id) => {
-    console.log("add products");
+    //console.log("add products");
 
-    setProducts((prevProducts) =>
-      prevProducts.map((item) =>
-        item.id !== id
-          ? item
-          : {
-              ...item,
-              quantity: parseInt(item.quantity) + 1,
-              subTotal: (parseInt(item.quantity) + 1) * item.price,
-            }
-      )
-    );
+    const newItems = cart.items.map((item) => {
+      if (item.id == id) {
+        const quantityVal = parseInt(item.quantity) + 1;
+        return {
+          ...item,
+          quantity: quantityVal,
+          subTotal: quantityVal * item.price,
+        };
+      } else {
+        return item;
+      }
+    });
 
-    console.log(products);
+    //console.log("REPLACE_ITEM newItems", newItems);
+
+    dispatch({ type: "REPLACE_ITEM", payload: newItems });
   };
 
   const handleChangeQuantity = (e, id) => {
@@ -73,25 +79,33 @@ export default function ProductItemBag() {
     if (isNaN(quantityVal)) {
       quantityVal = 1; // Nếu giá trị không phải là số, đặt giá trị mặc định là 1
     }
-    setProducts((prevProducts) =>
-      prevProducts.map((item) =>
-        item.id !== id ? item : { ...item, quantity: e.target.value }
-      )
-    );
+
+    const newItems = cart.items.map((item) => {
+      if (item.id == id) {
+        return {
+          ...item,
+          quantity: quantityVal,
+          subTotal: quantityVal * item.price,
+        };
+      } else {
+        return item;
+      }
+    });
+
+    //console.log("REPLACE_ITEM newItems", newItems);
+    dispatch({ type: "REPLACE_ITEM", payload: newItems });
   };
 
-  function calSumSubTotal() {
+  function calSumSubTotal(products) {
     let total = 0;
-    console.log("calSumSubTotal products.length:", products.length);
+    //console.log("calSumSubTotal products.length:", products.length);
     if (products.length > 0) {
       products.forEach((item) => {
-        console.log("item:");
-        console.log(item);
         let quantity = parseInt(item.quantity);
         total = total + item.price * quantity;
       });
     }
-    console.log("calSumSubTotal ", total);
+    //console.log("calSumSubTotal ", total);
     return total;
   }
 
@@ -106,29 +120,27 @@ export default function ProductItemBag() {
   const handleSubTract = (e, id) => {
     //e.preventDefault();
 
-    setProducts(
-      products.map((item) =>
-        item.id !== id
-          ? item
-          : {
-              ...item,
-              quantity:
-                parseInt(item.quantity) > 0 ? parseInt(item.quantity) - 1 : 0,
-              subTotal: (parseInt(item.quantity) - 1) * item.price,
-            }
-      )
-    );
+    const newItems = cart.items.map((item) => {
+      const quantityVal =
+        parseInt(item.quantity) > 0 ? parseInt(item.quantity) - 1 : 0;
+      if (item.id == id) {
+        return {
+          ...item,
+          quantity: quantityVal,
+          subTotal: quantityVal * item.price,
+        };
+      } else {
+        return item;
+      }
+    });
+    // console.log("REPLACE_ITEM newItems", newItems);
+    dispatch({ type: "REPLACE_ITEM", payload: newItems });
   };
-  const handleDelete = (e, id) => {
-    alert("Delete item");
-    cart.removeToCart(id);
-    setProducts((prevProducts) => initProductsFromCart(cart));
-    console.log("after delete cart");
-    console.log(cart.items);
-    // setProducts((prevProducts) =>
-    //   prevProducts.filter((item) => item.id !== id)
-    // );
+  const handleDelete = (e, item) => {
+    //cart.removeToCart(id);
+    dispatch({ type: "REMOVE_ITEM", payload: item });
   };
+
   async function handleOrderProducts(e) {
     e.preventDefault();
 
@@ -142,20 +154,21 @@ export default function ProductItemBag() {
       }));
       const orderRequest = {};
 
-      const sumSubTotal = calSumSubTotal();
+      const sumSubTotal = calSumSubTotal(cart.items);
       const delivery = calDelivery(sumSubTotal);
 
       orderRequest.items = productOrders;
       orderRequest.delivery = delivery;
       orderRequest.total = calSumTotal(sumSubTotal, delivery);
 
-      console.log("orderRequest: ", orderRequest);
+      //console.log("orderRequest: ", orderRequest);
       const result = await registerData(orderRequest);
       if (result.statusCode === 201) {
         //console.log("navigate to ProductAPP");
-        alert("order successfull");
+        alert("Order successfull");
         //clear carts
-        cart.reset();
+        //cart.reset();
+        dispatch({ type: "RESET" });
         navigate("/Home");
       }
     } catch (error) {
@@ -215,8 +228,8 @@ export default function ProductItemBag() {
         {products.length > 0 &&
           products.map((item, index) => (
             <>
-              <div className="row-item" key={index}>
-                <div className="column-item">
+              <div className="row-item" key={item.id}>
+                <div className="column-item" key={index * 10 + index}>
                   {/* <img
                     className="img_cart"
                     src="https://kmartau.mo.cloudinary.net/d734b843-3ab6-4153-b343-2d8ca42292a0.jpg?tx=w_640,h_640"
@@ -225,6 +238,7 @@ export default function ProductItemBag() {
                   /> */}
 
                   <FileDownloadDisplay
+                    key={index * 10 + index}
                     docId={item.docId}
                     className="img_cart"
                     alt="Not download image"
@@ -271,7 +285,7 @@ export default function ProductItemBag() {
                 <div className="column-item">
                   <span className="item_delete">
                     <button
-                      onClick={(e) => handleDelete(e, item.id)}
+                      onClick={(e) => handleDelete(e, item)}
                       className="button"
                     >
                       <Delete />

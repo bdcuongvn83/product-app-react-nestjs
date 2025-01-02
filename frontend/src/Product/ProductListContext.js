@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { ProductsDispatchContext, ProductsContext } from "./ProductsContext";
 import numeral from "numeral";
+import FileDownloadDisplay from "../File/FileDownloadDisplay";
 
 export default function ProductListContext() {
   const dispatch = useContext(ProductsDispatchContext);
@@ -99,6 +100,7 @@ export default function ProductListContext() {
           <thead>
             <tr>
               <th style={{ width: "20px" }}>#</th>
+              <th style={{ width: "100px" }}>Image</th>
               <th>Product Name</th>
               <th>Price</th>
               <th style={{ width: "120px" }}>Action</th>
@@ -106,9 +108,17 @@ export default function ProductListContext() {
           </thead>
           <tbody>
             {products.map((item, index) => (
-              <tr key={index}>
+              <tr key={index + 1}>
                 <td style={{ width: "20px" }}>
-                  <input type="checkbox"></input>
+                  <span>{index}</span>
+                </td>
+                <td style={{ width: "100px" }}>
+                  <FileDownloadDisplay
+                    docId={item.docId}
+                    className="img_cart"
+                    alt="Not download image"
+                    style={{ maxWidth: "100%" }}
+                  ></FileDownloadDisplay>
                 </td>
                 <td>
                   {item.done ? (

@@ -3,7 +3,7 @@ import ProductAppContext from "./Product/ProductAppContext";
 import ProductAddContext from "./Product/ProductAddContext";
 import ProductListApp from "./Users/ProductListApp";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import ProductItemSelect from "./Users/ProductItemSelect";
 import ProductItemBag from "./Users/ProductItemBag";
@@ -13,58 +13,86 @@ import OrderComponent from "./Orders/OrderComponent";
 
 function App() {
   const [countCart, setCountCart] = useState(0);
-  // const [cart, setCart] = useState({ items: [] });
-
-  const cart = {
+  //const [cart, setCart] = useState({ items: [] });
+  const [cart, dispatch] = useReducer(tasksReducer, {
     items: [],
-    addToCart: (item) => {
-      console.log("addToCart process item:", item);
-      //check item id if not exits then push or exits update to increase quantity
+  });
 
-      const foundItem = cart.items.filter((cartItem) => cartItem.id == item.id);
-      if (foundItem && foundItem.length > 0) {
-        // console.log("foundItem length: ", foundItem.length);
-        cart.items.forEach((obj) => {
-          if (obj.id == item.id) {
-            obj.quantity = obj.quantity + item.quantity;
-          }
-        });
-      } else {
-        //console.log("not foundItem  ");
-        cart.items.push(item);
-      }
-      // const totalQuantity = cart.items.reduce(
-      //   (total, item) => total + item.quantity,
-      //   0
-      // );
-      // console.log("totalQuantity:", totalQuantity);
-      // setCountCart((prestate) => totalQuantity);
-      console.log("items after:");
-      console.log(cart.items);
-    },
-    removeToCart: (id) => {
-      const result = cart.items.filter((cartItem) => cartItem.id != id);
-      cart.items = result;
-      //console.log("result after remove to carts: ");
-      console.log(cart.items);
-      const totalQuantity = cart.items.reduce(
-        (total, item) => total + item.quantity,
-        0
-      );
-      setCountCart(totalQuantity);
-    },
-    reset: () => {
-      cart.items = [];
-      setCountCart(0);
-    },
-  };
+  function tasksReducer(state, action) {
+    console.log("action", action);
+    switch (action.type) {
+      case "ADD_ITEM":
+        //case Add new/case add multi time on the same item.
+        console.log("tasksReducer ADD_ITEM");
+
+        const index = state.items.findIndex(
+          (item) => item.id === action.payload.id
+        );
+
+        if (index !== -1) {
+          //exist, increse quantity
+          const newitems = state.items.map((item) => {
+            if (item.id == action.payload.id) {
+              return {
+                ...item,
+                quantity: item.quantity + action.payload.quantity,
+              };
+            } else {
+              return item;
+            }
+          });
+
+          return {
+            ...state,
+            items: newitems,
+          };
+        } else {
+          //not exist, add
+          return {
+            ...state,
+            items: [...state.items, action.payload],
+          };
+        }
+
+      case "REPLACE_ITEM":
+        //case Add quantity/Remove quantity/change Quantity
+
+        console.log("tasksReducer REPLACE_ITEM");
+
+        return {
+          ...state,
+          items: action.payload,
+        };
+
+      case "REMOVE_ITEM":
+        console.log("tasksReducer REMOVE_ITEM");
+        const newitems = state.items.filter(
+          (item) => item.id !== action.payload.id
+        );
+
+        return {
+          ...state,
+          items: newitems,
+        };
+      case "RESET":
+        console.log("tasksReducer RESET");
+        return {
+          ...state,
+          items: [],
+        };
+      default:
+        console.log("tasksReducer default");
+        return state;
+    }
+  }
 
   // Example cart object
   useEffect(() => {
-    console.log("cart items changes");
-    console.log("cart.items.length:");
+    //console.log("XXXXXXXXXXX useEffect calculate CountCarts");
+
+    setCountCart((prestate) => cart.items.length);
     console.log(cart.items.length);
-  }, [cart]);
+  }, [cart.items]);
 
   function Home() {
     return <h1>Home Page</h1>;
@@ -75,7 +103,7 @@ function App() {
   }
 
   return (
-    <ProductsCartContext.Provider value={cart}>
+    <ProductsCartContext.Provider value={{ cart, dispatch }}>
       <div className="main-layout">
         <BrowserRouter>
           <div className="main-header">

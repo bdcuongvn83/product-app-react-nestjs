@@ -13,11 +13,19 @@ export default function ProductItemSelect() {
   //const products = useContext(ProductsContext);
   const navigate = useNavigate();
 
+  const { cart, dispatch } = useContext(ProductsCartContext);
+
+  //const dispatch = useContext(ProductsCartContext);
+  // const cart = useContext(ProductsCartContext);
+  console.log("ProductItemSelect begin");
+  console.log("ProductItemSelect cart:");
+
+  console.log(cart);
+
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const { id } = useParams();
   const location = useLocation();
-  const cart = useContext(ProductsCartContext);
 
   const { state } = location || location.state || {}; // Truyền dữ liệu qua state
   const product = state || {}; // Lấy dữ liệu sản phẩm từ state
@@ -133,13 +141,9 @@ export default function ProductItemSelect() {
                 }; // Example item
                 console.log("onclick cart item:");
                 console.log(newItem);
-                cart.addToCart(newItem);
+                dispatch({ type: "ADD_ITEM", payload: newItem });
+                // cart.addToCart(newItem);
                 // console.log(`cart `, cart);
-
-                //const cart = { items: [], addToCart: () => {} }; // Example cart object
-                // navigate(`/Users/ProductItemAddedPopup/${product.id}`, {
-                //   state: newItem,
-                // });
 
                 setModalIsOpen(true);
               }}
