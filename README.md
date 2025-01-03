@@ -165,6 +165,7 @@ Register/update/delete Database : using FileManageService, insert/update/delete/
 ![image](https://github.com/user-attachments/assets/a92e7267-5453-457c-aff9-082c392181b6)
 
 ### 1. Folder File: FileDownloadDisplay: component to display Image
-### 2. Folder Orders: relating  Tracking Order (user)
-### 3. Folder Product: relating product management, add new/modify/delete product. (Admin)
-### 4. Folder Users: relating screen products, modal popup (home page, select product to add cart bag)
+### 2. Folder Orders: relating  Tracking Order (screens for user)
+### 3. Folder Product: relating product management, add new/modify/delete product. (screens for Admin)
+### 4. Folder Users: relating screen products, modal popup (screens for users: home page, select product to add cart bag, cart bag screen)
+
