@@ -1,6 +1,5 @@
 # product-app-react-nestjs
-
-
+## Demo
 https://github.com/user-attachments/assets/ebb02270-c37c-4bf7-9a69-ce3d9f813b95
 
 # Features:
@@ -122,6 +121,51 @@ Install MySQL
 ### Link download: mySQL
 https://dev.mysql.com/downloads/installer/
 
-Download structure data sql:
+1. clone this repository, move to database folder.
+2. Import structure sql in this database folder to My SQL database
+![image](https://github.com/user-attachments/assets/5aa3c806-f8b9-4839-b12e-673adb394b4a)
 
-[Dump20250103_structureSQL.zip](https://github.com/user-attachments/files/18297019/Dump20250103_structureSQL.zip)
+## How to run
+1. Firstly, run backend.
+From cmd, move to folder backend
+npm run start:dev
+(run option start:dev, help us when change source code, source code will aumatically be builded.
+(run with port 3001)
+2. Run frondend
+npm start
+(run with port 3000)
+3. Open browser, run url:
+http://localhost:3000
+
+![image](https://github.com/user-attachments/assets/1b91fbd5-12e8-48d4-af13-f31beb55df97)
+
+Maybe, need to move link Product on Header, and register some your products, after that comeback link Home.
+
+## Contributions  
+Contributions are welcome! Please open an issue or submit a pull request.  
+
+## structure source code:
+### Backend structure:
+
+![image](https://github.com/user-attachments/assets/f6f19c8e-fbd1-4745-84d6-d5dfccd4d77e)
+Every module such as FileManage module : has controler and service.
+Controler provide RestAPI for front end.
+Register/update/delete Database : using FileManageService, insert/update/delete/query through Entity (mapping to Table via TypeORM)
+### 1.a FileManageController
+![image](https://github.com/user-attachments/assets/8cb20dae-f5b5-4166-a32b-238c69d06533)
+### 1.b FileManageService
+![image](https://github.com/user-attachments/assets/1097e4d5-414d-4ffb-bd3c-cb47aa73e772)
+### 1.c Entity:
+![image](https://github.com/user-attachments/assets/a6632f02-4951-484a-818f-7c5175aaa391)
+
+### 1.d Setting connect MySQL:
+![image](https://github.com/user-attachments/assets/9db439a4-cf61-431b-8005-e221d40fc136)
+
+### Frondend structure:
+![image](https://github.com/user-attachments/assets/a92e7267-5453-457c-aff9-082c392181b6)
+
+### 1. Folder File: FileDownloadDisplay: component to display Image
+### 2. Folder Orders: relating  Tracking Order (screens for user)
+### 3. Folder Product: relating product management, add new/modify/delete product. (screens for Admin)
+### 4. Folder Users: relating screen products, modal popup (screens for users: home page, select product to add cart bag, cart bag screen)
+
