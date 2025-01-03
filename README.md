@@ -143,3 +143,28 @@ Maybe, need to move link Product on Header, and register some your products, aft
 
 ## Contributions  
 Contributions are welcome! Please open an issue or submit a pull request.  
+
+## structure source code:
+### Backend structure:
+
+![image](https://github.com/user-attachments/assets/f6f19c8e-fbd1-4745-84d6-d5dfccd4d77e)
+Every module such as FileManage module : has controler and service.
+Controler provide RestAPI for front end.
+Register/update/delete Database : using FileManageService, insert/update/delete/query through Entity (mapping to Table via TypeORM)
+### 1.a FileManageController
+![image](https://github.com/user-attachments/assets/8cb20dae-f5b5-4166-a32b-238c69d06533)
+### 1.b FileManageService
+![image](https://github.com/user-attachments/assets/1097e4d5-414d-4ffb-bd3c-cb47aa73e772)
+### 1.c Entity:
+![image](https://github.com/user-attachments/assets/a6632f02-4951-484a-818f-7c5175aaa391)
+
+### 1.d Setting connect MySQL:
+![image](https://github.com/user-attachments/assets/9db439a4-cf61-431b-8005-e221d40fc136)
+
+### Frondend structure:
+![image](https://github.com/user-attachments/assets/a92e7267-5453-457c-aff9-082c392181b6)
+
+### 1. Folder File: FileDownloadDisplay: component to display Image
+### 2. Folder Orders: relating  Tracking Order (user)
+### 3. Folder Product: relating product management, add new/modify/delete product. (Admin)
+### 4. Folder Users: relating screen products, modal popup (home page, select product to add cart bag)
