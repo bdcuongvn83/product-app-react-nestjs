@@ -47,6 +47,7 @@ export default function ProductListApp() {
       console.error("Error fetching data:", error);
     }
   }
+
   // Fetch dữ liệu từ API NestJS
   useEffect(() => {
     const fetchData = async () => {

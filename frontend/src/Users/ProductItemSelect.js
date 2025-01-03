@@ -15,13 +15,6 @@ export default function ProductItemSelect() {
 
   const { cart, dispatch } = useContext(ProductsCartContext);
 
-  //const dispatch = useContext(ProductsCartContext);
-  // const cart = useContext(ProductsCartContext);
-  console.log("ProductItemSelect begin");
-  console.log("ProductItemSelect cart:");
-
-  console.log(cart);
-
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const { id } = useParams();
@@ -30,7 +23,7 @@ export default function ProductItemSelect() {
   const { state } = location || location.state || {}; // Truyền dữ liệu qua state
   const product = state || {}; // Lấy dữ liệu sản phẩm từ state
 
-  console.log(product);
+  //console.log(product);
   if (!product) {
     return <h1>No product selected</h1>;
   }
@@ -139,11 +132,9 @@ export default function ProductItemSelect() {
                   quantity: 1,
                   docId: product.docId,
                 }; // Example item
-                console.log("onclick cart item:");
-                console.log(newItem);
+                // console.log("onclick cart item:");
+                // console.log(newItem);
                 dispatch({ type: "ADD_ITEM", payload: newItem });
-                // cart.addToCart(newItem);
-                // console.log(`cart `, cart);
 
                 setModalIsOpen(true);
               }}

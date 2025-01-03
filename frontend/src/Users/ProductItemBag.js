@@ -68,8 +68,6 @@ export default function ProductItemBag() {
       }
     });
 
-    //console.log("REPLACE_ITEM newItems", newItems);
-
     dispatch({ type: "REPLACE_ITEM", payload: newItems });
   };
 
@@ -92,7 +90,6 @@ export default function ProductItemBag() {
       }
     });
 
-    //console.log("REPLACE_ITEM newItems", newItems);
     dispatch({ type: "REPLACE_ITEM", payload: newItems });
   };
 

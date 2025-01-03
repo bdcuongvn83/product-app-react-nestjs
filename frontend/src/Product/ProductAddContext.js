@@ -85,11 +85,11 @@ export default function ProductAddContext() {
   }
 
   function registerData(formData) {
-    console.log("formData:");
-    console.log(formData);
-    for (let pair of formData.entries()) {
-      console.log(pair[0] + ": " + pair[1]);
-    }
+    // console.log("formData:");
+    // console.log(formData);
+    // for (let pair of formData.entries()) {
+    //   console.log(pair[0] + ": " + pair[1]);
+    // }
 
     return new Promise((resovle, reject) => {
       try {

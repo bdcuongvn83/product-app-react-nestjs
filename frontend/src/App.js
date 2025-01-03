@@ -131,21 +131,22 @@ function App() {
                 <div className="item">
                   <Link to="/Users/ProductItemBag">
                     Cart
-                    <span
-                      style={{
-                        // position: "absolute",
-                        // top: "0",
-                        //right: "-10px",
-                        background: "red",
-                        color: "white",
-                        borderRadius: "50%",
-                        padding: "4px 8px",
-                        fontSize: "11px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      {countCart}
-                    </span>
+                    {countCart > 0 ? (
+                      <span
+                        style={{
+                          background: "red",
+                          color: "white",
+                          borderRadius: "50%",
+                          padding: "4px 8px",
+                          fontSize: "11px",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {countCart}
+                      </span>
+                    ) : (
+                      ""
+                    )}
                   </Link>
                 </div>
               </div>
@@ -153,7 +154,7 @@ function App() {
           </div>
           <div className="main-content">
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<ProductListApp />} />
               <Route path="/about" element={<About />} />
 
               <Route path="/ProductApp" element={<ProductAppContext />} />

@@ -11,8 +11,8 @@ import FileDownloadDisplay from "../File/FileDownloadDisplay";
 
 export default function ProductList() {
   const products = useContext(ProductsContext);
-  console.log("ProductList products");
-  console.log(products);
+  //console.log("ProductList products");
+  //console.log(products);
 
   if (products == null) {
     throw new Error("TaskAddContext must be used within a TaskAppContext");
