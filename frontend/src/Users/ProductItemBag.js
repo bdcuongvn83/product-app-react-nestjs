@@ -26,7 +26,7 @@ export default function ProductItemBag() {
   const [sumTotal, setSumTotal] = useState(0);
 
   useEffect(() => {
-    console.log("XXXXXXXXXXXXXXXXXXX:useEffect cart.items changed");
+    // console.log("XXXXXXXXXXXXXXXXXXX:useEffect cart.items changed");
 
     setProducts((prevProducts) => initProductsFromCart(cart));
     // console.log("Products:", products);
@@ -242,7 +242,7 @@ export default function ProductItemBag() {
                     style={{ maxWidth: "100%" }}
                   ></FileDownloadDisplay>
                 </div>
-                <div className="column-item">
+                <div className="column-item" style={{ width: "150px" }}>
                   <span className="item_name">{item.productName}</span>
                 </div>
                 <div className="column-item">

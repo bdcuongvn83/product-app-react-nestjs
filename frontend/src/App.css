@@ -425,6 +425,7 @@
 
 .column-item {
   padding: 5px;
+  min-width: 100px;
 }
 .group_quantity {
   display: flex;
