@@ -98,3 +98,30 @@ After order Products in Cart screen, select link Tracking-Order to confirm order
 ![image](https://github.com/user-attachments/assets/581ef9ef-b178-4c70-8696-f3d0424afa79)
 ### Show results
 ![image](https://github.com/user-attachments/assets/dae92f03-d03a-4c25-9e34-e50aee043e51)
+
+# How to do it and source code of this project
+Installation Guide
+![image](https://github.com/user-attachments/assets/912db3d3-fb90-42aa-a791-e0b3d55e722a)
+
+## Install node.js
+1. https://nodejs.org/en/download
+Node v22.11.0 (LTS)
+
+## BackEnd:
+
+1. clone this repository, move to folder backend
+2. Open cmd in backend
+3. npm install (install node.js firstly)
+
+## FrondEnd:
+1. clone this repository, move to folder frondend 
+2. Open cmd in backend
+3. npm install (install node.js firstly)
+## set up database.
+Install MySQL
+### Link download: mySQL
+https://dev.mysql.com/downloads/installer/
+
+Download structure data sql:
+
+[Dump20250103_structureSQL.zip](https://github.com/user-attachments/files/18297019/Dump20250103_structureSQL.zip)
