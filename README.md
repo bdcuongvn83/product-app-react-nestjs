@@ -1,6 +1,5 @@
 # product-app-react-nestjs
-
-
+## Demo
 https://github.com/user-attachments/assets/ebb02270-c37c-4bf7-9a69-ce3d9f813b95
 
 # Features:
@@ -122,6 +121,25 @@ Install MySQL
 ### Link download: mySQL
 https://dev.mysql.com/downloads/installer/
 
-Download structure data sql:
+1. clone this repository, move to database folder.
+2. Import structure sql in this database folder to My SQL database
+![image](https://github.com/user-attachments/assets/5aa3c806-f8b9-4839-b12e-673adb394b4a)
 
-[Dump20250103_structureSQL.zip](https://github.com/user-attachments/files/18297019/Dump20250103_structureSQL.zip)
+## How to run
+1. Firstly, run backend.
+From cmd, move to folder backend
+npm run start:dev
+(run option start:dev, help us when change source code, source code will aumatically be builded.
+(run with port 3001)
+2. Run frondend
+npm start
+(run with port 3000)
+3. Open browser, run url:
+http://localhost:3000
+
+![image](https://github.com/user-attachments/assets/1b91fbd5-12e8-48d4-af13-f31beb55df97)
+
+Maybe, need to move link Product on Header, and register some your products, after that comeback link Home.
+
+## Contributions  
+Contributions are welcome! Please open an issue or submit a pull request.  
