@@ -23,7 +23,7 @@ export default function ProductList() {
       <div className="product-list">
         {products.map((item, index) => (
           <>
-            <div className="product-item" key={item.id}>
+            <div className="product-item" key={"rowkeyIndex_" & index}>
               {/* <img
                 className="img_cart"
                 src="https://kmartau.mo.cloudinary.net/d734b843-3ab6-4153-b343-2d8ca42292a0.jpg?tx=w_640,h_640"

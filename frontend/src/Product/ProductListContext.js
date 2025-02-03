@@ -108,7 +108,7 @@ export default function ProductListContext() {
           </thead>
           <tbody>
             {products.map((item, index) => (
-              <tr key={index + 1}>
+              <tr key={"rowkey_" & item.id}>
                 <td style={{ width: "20px" }}>
                   <span>{index + 1}</span>
                 </td>
