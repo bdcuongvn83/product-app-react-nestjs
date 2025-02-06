@@ -38,19 +38,30 @@ Provide a search feature by product name  for products.
 
 ### Register Product:
 ![image](https://github.com/user-attachments/assets/d4b5a7dc-d451-4dc0-9821-d819cb85901b)
-![image](https://github.com/user-attachments/assets/13dc0252-8de8-43d9-8a63-a0ac916cba96)
+
+![image](https://github.com/user-attachments/assets/7bc6928b-efa9-4643-b84b-76810cd9c93a)
+
 
 ### Select image of product:
-![image](https://github.com/user-attachments/assets/c786fb83-3820-4b0e-845f-cd7fee163e13)
+
+![image](https://github.com/user-attachments/assets/80fe408e-6787-4588-b6a6-75d47048417a)
+
+
+### Select category for product:
+![image](https://github.com/user-attachments/assets/3e0745ba-69c1-4d65-9f41-acee5dbca5b7)
+
 
 ### Click register.
-![image](https://github.com/user-attachments/assets/96a5a3d5-755f-45aa-9e16-5d0519e7ea02)
 
-### Display registerd product
-![image](https://github.com/user-attachments/assets/fa36669d-df12-47bf-935d-de10f904b648)
+![image](https://github.com/user-attachments/assets/0421fbed-7754-4873-a694-f818aad2fa51)
+
+### Display registerd product  
+![image](https://github.com/user-attachments/assets/026459fb-42ab-4944-b72f-af9d5040c242)
+
 
 ### In home page, we can purchase new product.
- ![image](https://github.com/user-attachments/assets/a4ef3992-4703-4cdc-a660-add530808727)
+ ![image](https://github.com/user-attachments/assets/be0102db-8c5d-4a37-94c3-764bf7e1f352)
+
 
 
 ## 2. Flow layout of Order catogory Management:
