@@ -104,13 +104,14 @@ export class ProductController {
 
   @Get('searchList')
   async searchList(
+    @Query('categoryName') categoryName: string,
     @Query('productName') productName: string,
     @Query('price', new DefaultValuePipe(0), ParseIntPipe) price: number,
     @Query('operator', new DefaultValuePipe(0), ParseIntPipe) operator: number,
   ): Promise<ResponseResultListDto> {
     //  let price = 0;
-
-    console.log('searchList:' + productName);
+    //console.log('categoryName:' + categoryName);
+    //console.log('productName:' + productName);
     //const operatorEnum: Operator = operator as Operator;//cai nay cung dung
     const operatorEnum: Operator | undefined = Object.values(Operator).includes(
       operator,
@@ -120,9 +121,11 @@ export class ProductController {
 
     console.log('operatorEnum:', operatorEnum);
     const productLst = await this.productService.searchProduct(
+      categoryName,
       productName,
       price,
       operatorEnum,
+      undefined,
     );
 
     return new ResponseResultListDto(productLst.length, productLst);

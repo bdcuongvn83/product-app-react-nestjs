@@ -16,6 +16,9 @@ import { OrdersModule } from './orders/orders.module';
 import { Order } from './entity/order.entity';
 import { OrderItem } from './entity/orderitem.entity';
 
+import { WebhookController } from './webhook/webhook.controller';
+import { Category } from './entity/category.entity';
+
 @Module({
   imports: [
     ProductModule,
@@ -28,7 +31,7 @@ import { OrderItem } from './entity/orderitem.entity';
       username: 'root',
       password: '123456',
       database: 'company_db',
-      entities: [Product, FileEntity, Order, OrderItem],
+      entities: [Product, FileEntity, Order, OrderItem, Category],
       synchronize: true,
     }),
 
@@ -36,7 +39,7 @@ import { OrderItem } from './entity/orderitem.entity';
 
     OrdersModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, WebhookController],
   providers: [{ provide: APP_PIPE, useClass: ValidationPipe }],
 })
 export class AppModule {

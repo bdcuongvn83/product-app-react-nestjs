@@ -14,6 +14,10 @@ export class ProductRequest {
   @Type(() => Number)
   price: number;
 
+  @IsInt()
+  @Type(() => Number)
+  categoryId: number;
+
   @IsString()
   @IsOptional()
   description: string;

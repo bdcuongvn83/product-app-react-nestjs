@@ -15,12 +15,15 @@ import { ProductDto } from './product.dto';
 import { ResponseSuccessDto } from 'src/Response/ResponseSuccessDto';
 import { ProductRequest } from 'src/Request/productRequest';
 import { FilemanageService } from 'src/filemanage/filemanage.service';
+import { Category } from 'src/entity/category.entity';
 
 @Injectable()
 export class ProductService {
   constructor(
     @InjectRepository(Product)
     private productRepository: Repository<Product>,
+    @InjectRepository(Category)
+    private categoryRepository: Repository<Category>,
     private dataSource: DataSource,
     private fileManager: FilemanageService,
   ) {}
@@ -44,30 +47,85 @@ export class ProductService {
    * @returns
    */
   async findAll(): Promise<Product[]> {
-    return this.productRepository.find();
+    return this.productRepository.find({
+      relations: ['category'],
+    });
+
+    // const products = await this.productRepository
+    //   .createQueryBuilder('product')
+    //   .leftJoinAndSelect('product.category', 'category')
+    //   .getMany();
+
+    // // Manually remove updateDateTime from category
+    // products.forEach((product) => {
+    //   if (product.category) {
+    //     delete product.category.updateDateTime;
+    //   }
+    // });
+
+    // return products;
   }
 
   /**
    * search Product by name(search like), and price(by operator)
+   * @param categoryName
    * @param productname
    * @param price
    * @param operator (enum >,<,=,>=,<=)
+   * @param limit undefined :search all record
    * @returns
    */
   async searchProduct(
+    categoryName: string,
     productname: string,
     price: number,
     operator: Operator,
+    limit: number,
   ): Promise<Product[]> {
     const queryBuilder: SelectQueryBuilder<Product> = this.dataSource.manager
       .createQueryBuilder()
-      //.createQueryBuilder('user')
       .select(['product'])
-      .from(Product, 'product')
+      .from(Product, 'product');
+
+    if (!nullOrBlank(productname)) {
       // .innerJoin('order', 'order', 'order.userId = user.id')
-      .where('product.productname like :productname', {
+      queryBuilder.where('product.productname like :productname', {
         productname: `%${productname}%`,
       });
+    }
+
+    if (!nullOrBlank(categoryName)) {
+      // Find the categoryId using categoryName
+      //const categoryIdSubQuery: SelectQueryBuilder<Category> =
+      const categoryIdSubQuery = this.dataSource.manager
+        .createQueryBuilder()
+        .select('id')
+        .from(Category, 'category')
+        .where('category.categoryName = :categoryName', { categoryName })
+        .limit(1); // Limit the query to return only the first result
+      //.getQuery();
+      //const resultCateId = await categoryIdSubQuery.getMany();
+      // const categoryId = resultCateId.length > 0 ? resultCateId[0].id : null; // Access the first id, or null if not found
+
+      // Default categoryId is 1 if not found
+
+      //console.log('categoryId=', categoryId);
+      // // Left Join category table
+      queryBuilder.leftJoinAndSelect(
+        'product.category',
+        'category',
+        'product.categoryId = category.id',
+      );
+      // Apply condition for categoryId, using the subquery for categoryName
+      queryBuilder.andWhere(
+        `product.categoryId = (${categoryIdSubQuery.getQuery()})`,
+      );
+      queryBuilder.setParameters(categoryIdSubQuery.getParameters());
+    }
+
+    if (limit != undefined || limit > 0) {
+      queryBuilder.limit(limit);
+    }
     // Thêm điều kiện cho price nếu có
     if (price !== undefined && price !== 0) {
       // Điều kiện cho price sử dụng enum Operator
@@ -93,9 +151,9 @@ export class ProductService {
           queryBuilder.andWhere('product.price <= :price', { price });
           break;
         default:
-          //equal
+          //equal <=
           console.log('dieu kien default');
-          queryBuilder.andWhere('product.price = :price', { price });
+          queryBuilder.andWhere('product.price <= :price', { price });
           break;
       }
     }
@@ -120,6 +178,7 @@ export class ProductService {
     foundEntity.productName = product.productName;
     foundEntity.price = product.price;
     foundEntity.description = product.description;
+    foundEntity.categoryId = product.categoryId;
 
     const updateEntity = await this.productRepository.save(foundEntity);
 
@@ -150,6 +209,7 @@ export class ProductService {
     entity.productName = productReq.productName;
     entity.price = productReq.price;
     entity.description = productReq.description;
+    entity.categoryId = productReq.categoryId;
 
     entity.docId = docId;
     const result: InsertResult = await this.productRepository.insert(entity);
@@ -174,4 +234,7 @@ export class ProductService {
     const result = await this.productRepository.delete(productid);
     return result;
   }
+}
+function nullOrBlank(val: string) {
+  return val === undefined || val === null || val.length == 0;
 }
