@@ -3,14 +3,14 @@ import {
   ProductsCartContext,
   ProductsContext,
 } from "../Product/ProductsContext";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import numeral from "numeral";
 import Modal from "react-modal";
 import ReactModal from "react-modal";
 import FileDownloadDisplay from "../File/FileDownloadDisplay";
+import { CircularProgress } from "@mui/material";
 
 export default function ProductItemSelect() {
-  //const products = useContext(ProductsContext);
   const navigate = useNavigate();
 
   const { cart, dispatch } = useContext(ProductsCartContext);
@@ -21,13 +21,68 @@ export default function ProductItemSelect() {
   const location = useLocation();
 
   const { state } = location || location.state || {}; // Truyền dữ liệu qua state
-  const product = state || {}; // Lấy dữ liệu sản phẩm từ state
+  //let product = state || {}; // Lấy dữ liệu sản phẩm từ state
+  const [loading, setLoading] = useState(true); // Add loading state
 
-  //console.log(product);
-  if (!product) {
-    return <h1>No product selected</h1>;
+  const [product, setProduct] = useState(state || {});
+
+  useEffect(() => {
+    console.log("useEffect:");
+    const fetchProduct = async () => {
+      console.log("fetchProduct:id", id);
+      //search for id
+
+      const result = await findProductById(id);
+      console.log("result:", result);
+      setProduct(result);
+      console.log("findProduct:", product);
+      setLoading(false);
+    };
+
+    console.log("product:", product);
+    if (isEmptyProduct(product)) {
+      fetchProduct();
+    } else {
+      console.log("not search data, using from list");
+      setLoading(false);
+    }
+  }, [id]); // Chỉ chạy khi
+
+  if (loading) {
+    return (
+      //return <h1>Loading...</h1>; // Show loading state
+      <div className="spinner-container">
+        <CircularProgress />
+      </div>
+    );
   }
 
+  if (isEmptyProduct(product)) {
+    return <h1>No product selected</h1>;
+  }
+  function isEmptyProduct(product) {
+    return Object.keys(product).length === 0;
+  }
+
+  async function findProductById(id) {
+    //e.preventDefault();
+    try {
+      //const queryString = new URLSearchParams(params).toString();
+      const url = `/api/product/find/${parseInt(id)}`;
+
+      const response = await fetch(url); // URL của API
+
+      const result = await response.json();
+      console.error("result fetching data:", result);
+
+      const result2 = result;
+      return { ...result2, done: true };
+
+      //dispatch({ type: "replace", payload: result2 }); // Dùng dispatch để cập nhật reducer
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  }
   //console.log(`Product ID: ${id}`);
 
   return (

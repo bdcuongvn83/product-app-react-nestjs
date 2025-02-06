@@ -101,6 +101,7 @@ export default function ProductListContext() {
             <tr>
               <th style={{ width: "20px" }}>#</th>
               <th style={{ width: "100px" }}>Image</th>
+              <th>Category</th>
               <th>Product Name</th>
               <th>Price</th>
               <th style={{ width: "120px" }}>Action</th>
@@ -119,6 +120,11 @@ export default function ProductListContext() {
                     alt="Not download image"
                     style={{ maxWidth: "100%" }}
                   ></FileDownloadDisplay>
+                </td>
+                <td style={{ width: "100px" }}>
+                  <div className="list_item item_left">
+                    {item.category.categoryName}
+                  </div>
                 </td>
                 <td>
                   {item.done ? (

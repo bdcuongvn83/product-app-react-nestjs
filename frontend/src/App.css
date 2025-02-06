@@ -80,6 +80,66 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Tùy chỉnh phần dropdown */
+.Dropdown-root {
+  width: 100%;
+  font-size: 16px;
+  position: relative;
+}
+
+.Dropdown-control {
+  display: flex;
+  align-items: center;
+  /* background: white;*/
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  min-height: 30px;
+}
+
+.Dropdown-placeholder {
+  color: #888;
+}
+
+.Dropdown-arrow-wrapper {
+  margin-left: auto;
+}
+
+.Dropdown-arrow {
+  border-top: 5px solid #333;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+}
+
+.Dropdown-menu {
+  position: absolute;
+  width: 100%;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.Dropdown-option {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.Dropdown-option:hover {
+  background-color: #f2f2f2;
+}
+
 @media (max-width: 768px) {
   .product-item {
     flex: 1 1 calc(50% - 16px); /* Mỗi hàng hiển thị 2 sản phẩm trên màn hình nhỏ */

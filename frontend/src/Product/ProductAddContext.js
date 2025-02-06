@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ReactDropdown from "react-dropdown";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export default function ProductAddContext() {
@@ -6,12 +7,28 @@ export default function ProductAddContext() {
   const [formData, setFormData] = useState({
     productName: "",
     price: 0,
+    categoryId: 0,
   });
+
+  // Giả lập dữ liệu từ database
+  const categoriesFromDB = [
+    { id: 1, categoryName: "laptop" },
+    { id: 2, categoryName: "phone" },
+    { id: 3, categoryName: "women" },
+    { id: 4, categoryName: "man" },
+    { id: 5, categoryName: "other" },
+  ];
+
+  const categoryOptions = categoriesFromDB.map((cat) => ({
+    value: cat.id,
+    label: cat.categoryName,
+  }));
 
   //contain error messsages relating all input items on screen.
   const [formErrors, setFormErrors] = useState({
     productName: "",
     price: "",
+    categoryId: "",
   });
 
   const [selectedFile, setSelectedFile] = useState(null);
@@ -41,6 +58,23 @@ export default function ProductAddContext() {
     }
   }
 
+  const handleSelectCategory = (selectedOption) => {
+    if (selectedOption) {
+      setFormData((prev) => ({
+        ...prev,
+        categoryId: selectedOption.value, // Store the categoryId
+      }));
+
+      // Clear validation error if user selects a category
+      setFormErrors((prev) => ({
+        ...prev,
+        categoryId: "",
+      }));
+    }
+
+    console.log("Selected Category ID:", selectedOption.value);
+  };
+
   function onCancel(e) {
     e.preventDefault();
     navigate("/ProductApp");
@@ -49,14 +83,23 @@ export default function ProductAddContext() {
   async function handleSubmitForm(e) {
     e.preventDefault();
 
+    // Check if categoryId is selected
+    if (!formData.categoryId) {
+      setFormErrors((prev) => ({
+        ...prev,
+        categoryId: "Category is required",
+      }));
+      return;
+    }
+
     // Final validation check
     const isFormValid = Object.values(formErrors).every(
       (error) => error === ""
     );
     try {
       if (isFormValid) {
-        setFormData({ productName: "", price: 0 });
-        setFormErrors({ productName: "", price: "" });
+        setFormData({ productName: "", price: 0, categoryId: 0 });
+        setFormErrors({ productName: "", price: "", categoryId: "" });
 
         // const productsNew = {
         //   productName: formData.productName,
@@ -66,6 +109,8 @@ export default function ProductAddContext() {
         const formDataToSend = new FormData();
         formDataToSend.append("productName", formData.productName);
         formDataToSend.append("price", formData.price);
+        formDataToSend.append("categoryId", formData.categoryId);
+
         if (selectedFile) {
           formDataToSend.append("file", selectedFile);
         }
@@ -165,7 +210,7 @@ export default function ProductAddContext() {
             </div>
             <div className="form-row">
               <div className="form-item">
-                <label>Product Name: </label>
+                <label>Upload file: </label>
               </div>
               <div className="form-item">
                 <input
@@ -179,6 +224,29 @@ export default function ProductAddContext() {
                 />
               </div>
             </div>
+
+            <div className="form-row">
+              <div className="form-item">
+                <label>Select Category: </label>
+              </div>
+              <div className="form-item">
+                <ReactDropdown
+                  required
+                  options={categoryOptions}
+                  onChange={(e) => handleSelectCategory(e)}
+                  value={categoryOptions.find(
+                    (option) => option.value === formData.categoryId
+                  )}
+                  placeholder="Select a category"
+                  className="custom-dropdown required"
+                  id="categoriesId"
+                />
+                {formErrors.categoryId && (
+                  <p className="form-item-error">{formErrors.categoryId}</p>
+                )}
+              </div>
+            </div>
+
             <div className="form-row button-row">
               <div>
                 <button className="btn" type="submit">
