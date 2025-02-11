@@ -1,5 +1,8 @@
 # product-app-react-nestjs
-## Demo
+## Demo shopping cart & ChatbotAI (updated 12/02/2025)
+https://drive.google.com/file/d/1En4Y7FtpGZs6XsDzF_eQY3VpBtDYJAcf/view?usp=sharing
+
+## Demo shopping cart (updated 12/01/2025)
 https://github.com/user-attachments/assets/ebb02270-c37c-4bf7-9a69-ce3d9f813b95
 
 # Features:
@@ -29,6 +32,13 @@ Track details of placed orders.
 Display an order management screen in a list format, showing orders and detailed order items.
 ## 5. Product Search Screen:
 Provide a search feature by product name  for products.
+
+## 6. Chatbot AI (DialogFlow) Search:
+Provide a search feature with Chatbot, our AI-powered chatbot provides a smart and interactive shopping experience with the following capabilities:
+Search products by category. 
+Search products by name.
+Search products by price.
+and It helps search using a context chain: category -> productname -> price.
 
 # Layout of features:
 
