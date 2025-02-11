@@ -14,27 +14,26 @@ export default function ProductList() {
   //console.log("ProductList products");
   //console.log(products);
 
-  if (products == null) {
-    throw new Error("TaskAddContext must be used within a TaskAppContext");
-  }
+  // if (products == null) {
+  //   throw new Error("TaskAddContext must be used within a TaskAppContext");
+  // }
 
   return (
     <>
+      {(!products || products.length === 0) && (
+        <p className="form-item-error padding-left">No products found.</p>
+      )}
+
       <div className="product-list">
         {products.map((item, index) => (
           <>
-            <div className="product-item" key={"rowkeyIndex_" & index}>
-              {/* <img
-                className="img_cart"
-                src="https://kmartau.mo.cloudinary.net/d734b843-3ab6-4153-b343-2d8ca42292a0.jpg?tx=w_640,h_640"
-                alt="Downloaded file"
-                style={{ maxWidth: "100%" }}
-              /> */}
+            <div className="product-item" key={"rowkeyIndex_" & item.id}>
               <FileDownloadDisplay
                 docId={item.docId}
                 className="img_cart"
                 alt="Not download image"
                 style={{ maxWidth: "100%" }}
+                key={item.docId} // Key thay đổi sẽ ép React re-render
               ></FileDownloadDisplay>
 
               <div className="item_label">

@@ -10,6 +10,7 @@ import ProductItemBag from "./Users/ProductItemBag";
 import { ProductsCartContext } from "./Product/ProductsContext";
 
 import OrderComponent from "./Orders/OrderComponent";
+import Chatbot from "./Chatbot/Chatbot";
 
 function App() {
   const [countCart, setCountCart] = useState(0);
@@ -17,6 +18,19 @@ function App() {
   const [cart, dispatch] = useReducer(tasksReducer, {
     items: [],
   });
+
+  // Load cart from localStorage
+  useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    dispatch({ type: "REPLACE_ITEM", payload: storedCart });
+  }, []); // Chạy một lần khi trang được tải lại
+
+  // Save cart to localStorage khi có sự thay đổi
+  useEffect(() => {
+    if (cart.items.length > 0) {
+      localStorage.setItem("cart", JSON.stringify(cart.items));
+    }
+  }, [cart.items]); // Chạy mỗi khi cart.items thay đổi
 
   function tasksReducer(state, action) {
     console.log("action", action);
@@ -69,7 +83,10 @@ function App() {
         const newitems = state.items.filter(
           (item) => item.id !== action.payload.id
         );
-
+        if (newitems.length == 0) {
+          //reset localstorage
+          localStorage.setItem("cart", JSON.stringify(newitems));
+        }
         return {
           ...state,
           items: newitems,
@@ -183,7 +200,10 @@ function App() {
                   </a>
                 </div>
               </div>
-              <div className="title">COPY RIGHT 2024 - DUC CUONG BUI</div>
+              <div>
+                <div className="title">COPY RIGHT 2024 - DUC CUONG BUI</div>
+                <Chatbot />
+              </div>
             </div>
           </div>
         </BrowserRouter>

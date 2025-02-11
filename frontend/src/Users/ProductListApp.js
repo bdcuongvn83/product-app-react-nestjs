@@ -30,7 +30,7 @@ export default function ProductListApp() {
         productName: productName,
         // param2: 'value2',
       };
-
+      setLoading(true);
       const queryString = new URLSearchParams(params).toString();
       const url = `/api/product/searchList?${queryString}`;
 
@@ -38,10 +38,10 @@ export default function ProductListApp() {
 
       const result = await response.json();
 
-      //setProducts(result.data);
-      //setLoading(false);
+      setLoading(false);
       const result2 = result.data.map((t) => ({ ...t, done: true }));
       setProducts((prestate) => result2);
+
       //dispatch({ type: "replace", payload: result2 }); // Dùng dispatch để cập nhật reducer
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -57,9 +57,9 @@ export default function ProductListApp() {
           const result = await response.json();
 
           //setProducts(result.data);
-          setLoading(false);
           const result2 = result.data.map((t) => ({ ...t, done: true }));
           setProducts((prestate) => result2);
+          setLoading(false);
           //dispatch({ type: "replace", payload: result2 }); // Dùng dispatch để cập nhật reducer
         }
       } catch (error) {
@@ -82,15 +82,26 @@ export default function ProductListApp() {
             value={productName}
             onChange={handleChange}
             placeholder="Search at supermarket"
+            onKeyDown={(e) => {
+              if (e.key == "Enter") {
+                searchProduct(e);
+              }
+            }}
           />
 
-          <button className="btn register" onClick={(e) => searchProduct(e)}>
-            <SearchIcon></SearchIcon>
+          <button
+            className="btn register"
+            onClick={(e) => searchProduct(e)}
+            disabled={loading}
+          >
+            {loading ? (
+              <span className="spinner"></span> // Loading spinner icon
+            ) : (
+              <SearchIcon />
+            )}
           </button>
         </div>
-        <div className="margin-top">
-          <ProductList></ProductList>
-        </div>
+        <div className="margin-top">{!loading && <ProductList />}</div>
       </>
     </ProductsContext.Provider>
   );

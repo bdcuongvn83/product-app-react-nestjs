@@ -88,6 +88,10 @@
 }
 
 /* Tùy chỉnh phần dropdown */
+.custom-dropdown {
+  width: 100% !important;
+}
+
 .Dropdown-root {
   width: 100%;
   font-size: 16px;
@@ -95,6 +99,7 @@
 }
 
 .Dropdown-control {
+  width: 100%;
   display: flex;
   align-items: center;
   /* background: white;*/
@@ -138,6 +143,38 @@
 
 .Dropdown-option:hover {
   background-color: #f2f2f2;
+}
+
+.form-item:first-child {
+  width: 150px; /* Cột đầu tiên có độ rộng cố định */
+  font-weight: bold;
+}
+
+.form-item:last-child {
+  flex: 1; /* Cột thứ hai chiếm phần còn lại */
+}
+
+.padding-left {
+  padding-left: 20px;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width: 768px) {
@@ -246,11 +283,12 @@
   display: flex;
   justify-content: space-between;
   gap: 10px;
+  width: 100%;
 }
 
 /* Each form item (label, input, etc.) */
 .form-item {
-  flex: 1;
+  /*flex: 1;*/
   display: flex;
   flex-direction: column;
 }

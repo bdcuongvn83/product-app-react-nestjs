@@ -25,6 +25,17 @@ export default function ProductItemBag() {
   const [delivery, setDelivery] = useState(0);
   const [sumTotal, setSumTotal] = useState(0);
 
+  // Load cart from localStorage
+  useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    // console.log(
+    //   "view ProductItemBag- localStorage-storedCart cart.items change storedCart:",
+    //   storedCart
+    // );
+
+    dispatch({ type: "REPLACE_ITEM", payload: storedCart });
+  }, []); // Chạy một lần khi trang được tải lại
+
   useEffect(() => {
     // console.log("XXXXXXXXXXXXXXXXXXX:useEffect cart.items changed");
 
