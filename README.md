@@ -1,12 +1,8 @@
 # product-app-react-nestjs
 ## Demo shopping cart & ChatbotAI (updated 12/02/2025)
-**Part1: shopping cart**  
 
-https://github.com/user-attachments/assets/e7067fb5-0902-4061-8261-5f79334d44e6
+[![Demo project ChatbotAI_ShoppingCart on youtube](https://github.com/user-attachments/assets/c6087a15-8745-4128-bf42-fe75e1f5105f)](https://youtu.be/JSRGRXHy_Ag)
 
-**Part2: Chatbot AI**  
-
-https://github.com/user-attachments/assets/231e0451-7a5d-4e56-9ad5-404dd5cd6768
 
 ## Demo shopping cart (updated 12/01/2025)
 https://github.com/user-attachments/assets/ebb02270-c37c-4bf7-9a69-ce3d9f813b95
