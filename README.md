@@ -121,7 +121,10 @@ After order Products in Cart screen, select link Tracking-Order to confirm order
 ### Show results
 ![image](https://github.com/user-attachments/assets/dae92f03-d03a-4c25-9e34-e50aee043e51)
 
-# How to do it and source code of this project
+# How to do it and source code of this project  
+**How to run Chatbot AI: please view on the link below:**  
+https://github.com/bdcuongvn83/product-app-react-nestjs/wiki/ChatbotAI%E2%80%90DialogFlow-ShoppingCart
+
 Installation Guide
 ![image](https://github.com/user-attachments/assets/912db3d3-fb90-42aa-a791-e0b3d55e722a)
 
