@@ -3,10 +3,6 @@
 
 [![Demo project ChatbotAI_ShoppingCart on youtube](https://github.com/user-attachments/assets/c6087a15-8745-4128-bf42-fe75e1f5105f)](https://youtu.be/JSRGRXHy_Ag)
 
-
-## Demo shopping cart (updated 12/01/2025)
-https://github.com/user-attachments/assets/ebb02270-c37c-4bf7-9a69-ce3d9f813b95
-
 # Features:
 1- Website 
 1. Layout
