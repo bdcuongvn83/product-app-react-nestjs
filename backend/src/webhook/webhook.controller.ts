@@ -42,6 +42,26 @@ export class WebhookController {
         undefined,
         maxlimit,
       );
+    } else if (intentName === 'i-provide-productname - price') {
+      const price = body.queryResult.parameters['price'] || 'default';
+      const outputContexts = body.queryResult.outputContexts;
+      const context = outputContexts.find((ctx) =>
+        ctx.name.includes('i-input-productname'),
+      );
+      const productName = context?.parameters?.['e-productname.original']; // Đổi tên đúng theo context cha
+      console.log('Product Name:', productName);
+
+      console.log('handleWebhook, keyword price', price);
+
+      products = await this.productService.searchProduct(
+        null,
+        productName,
+        price,
+        undefined,
+        maxlimit,
+      );
+      nextSuggestTitle = `Would you like to search more product(yes/no)`;
+      nextSuggestSubTitle = 'Please input yes/no.';
     } else if (intentName === 'i-provide-category-laptop - price') {
       const price = body.queryResult.parameters['price'] || 10000;
       keyword = `category:laptop, price: ${price}`;
@@ -94,42 +114,64 @@ export class WebhookController {
     }
 
     console.log('handleWebhook, result products:', products);
-
-    const response = {
-      fulfillmentMessages: [
-        {
-          payload: {
-            richContent: [
-              [
-                {
-                  type: 'info',
-                  title: `We found ${products.length} products for the keyword "${keyword}"`,
-                  subtitle: 'Click below to view more details.',
-                  actionLink: `http://localhost:3000/Users/ProductItemSelect/${products[0].id}`,
-                },
+    let response = {};
+    if (products.length == 0) {
+      console.log('handleWebhook, case no products:');
+      response = {
+        fulfillmentMessages: [
+          {
+            payload: {
+              richContent: [
+                [
+                  {
+                    type: 'info',
+                    title: `We found ${products.length} products for the keyword "${keyword}"`,
+                    subtitle: nextSuggestTitle,
+                  },
+                ],
               ],
-              [
-                // Tạo một card có thể nhấp cho mỗi sản phẩm
-                ...products.slice(0, 3).map((product) => ({
-                  type: 'info',
-                  title: `${product.productName} - $${product.price}`,
-                  subtitle: `Click to view details`,
-                  actionLink: `http://localhost:3000/Users/ProductItemSelect/${product.id}`,
-                })),
-              ],
-              [
-                {
-                  type: 'info',
-                  title: nextSuggestTitle,
-                  subtitle: nextSuggestSubTitle,
-                },
-              ],
-            ],
+            },
           },
-        },
-      ],
-    };
+        ],
+      };
+      return response;
+    } else {
+      response = {
+        fulfillmentMessages: [
+          {
+            payload: {
+              richContent: [
+                [
+                  {
+                    type: 'info',
+                    title: `We found ${products.length} products for the keyword "${keyword}"`,
+                    subtitle: 'Click below to view more details.',
+                    actionLink: `http://localhost:3000/Users/ProductItemSelect/${products[0].id}`,
+                  },
+                ],
+                [
+                  // Tạo một card có thể nhấp cho mỗi sản phẩm
+                  ...products.slice(0, 3).map((product) => ({
+                    type: 'info',
+                    title: `${product.productName} - $${product.price}`,
+                    subtitle: `Click to view details`,
+                    actionLink: `http://localhost:3000/Users/ProductItemSelect/${product.id}`,
+                  })),
+                ],
+                [
+                  {
+                    type: 'info',
+                    title: nextSuggestTitle,
+                    subtitle: nextSuggestSubTitle,
+                  },
+                ],
+              ],
+            },
+          },
+        ],
+      };
 
-    return response;
+      return response;
+    }
   }
 }
