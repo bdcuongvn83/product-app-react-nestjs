@@ -39,6 +39,11 @@ import { Category } from './entity/category.entity';
       url: process.env.DATABASE_URL,
       entities: [Product, FileEntity, Order, OrderItem, Category],
       synchronize: true,
+      extra: {
+        ssl: {
+          rejectUnauthorized: true, // hoặc false nếu dùng chứng chỉ self-signed
+        },
+      },
     }),
 
     FilemanageModule,
