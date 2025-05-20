@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { BASE_URL } from "../config";
 
 const FileDownloadDisplay = ({ docId, className, style, altText }) => {
   const [fileUrl, setFileUrl] = useState("");
@@ -20,7 +21,7 @@ const FileDownloadDisplay = ({ docId, className, style, altText }) => {
     try {
       const timestamp = new Date().getTime(); // Unique timestamp to bypass cache
       //const response = await fetch(`/api/filemanage/1?timestamp=${timestamp}`); // Fetch the file
-      const downloadFileUrl = `/api/filemanage/${docId}?timestamp=${timestamp}`;
+      const downloadFileUrl = `${BASE_URL}/api/filemanage/${docId}?timestamp=${timestamp}`;
       //console.log("downloadFileUrl:", downloadFileUrl);
 
       const response = await fetch(downloadFileUrl); // Fetch the file

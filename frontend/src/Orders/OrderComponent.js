@@ -6,7 +6,7 @@ import OrdersContext, {
 } from "./OrdersContext.js";
 import { useNavigate, useLocation } from "react-router-dom";
 import OrderListComponent from "./OrderListComponent.js";
-
+import { BASE_URL } from "../config";
 //const initialTasks = { products: [] };
 
 export default function OrderComponent() {
@@ -24,7 +24,7 @@ export default function OrderComponent() {
     };
 
     const queryString = new URLSearchParams(params).toString();
-    const url = `/api/orders/searchOrderList?${queryString}`;
+    const url = `${BASE_URL}/api/orders/searchOrderList?${queryString}`;
     console.log("url:", url);
     const fetchData = async () => {
       try {

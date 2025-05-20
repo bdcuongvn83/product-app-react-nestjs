@@ -4,6 +4,7 @@ import { ProductsContext } from "../Product/ProductsContext.js";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import SearchIcon from "@mui/icons-material/Search";
+import { BASE_URL } from "../config";
 //const initialTasks = { products: [] };
 
 //ProductsCartContext
@@ -32,7 +33,7 @@ export default function ProductListApp() {
       };
       setLoading(true);
       const queryString = new URLSearchParams(params).toString();
-      const url = `/api/product/searchList?${queryString}`;
+      const url = `${BASE_URL}/api/product/searchList?${queryString}`;
 
       const response = await fetch(url); // URL của API
 

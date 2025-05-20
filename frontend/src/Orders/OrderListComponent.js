@@ -7,6 +7,7 @@ import numeral from "numeral";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import FileDownloadDisplay from "../File/FileDownloadDisplay";
+import { BASE_URL } from "../config";
 
 export default function OrderListComponent() {
   const orders = useContext(OrdersContext) || [];
@@ -28,7 +29,7 @@ export default function OrderListComponent() {
       };
 
       const queryString = new URLSearchParams(params).toString();
-      const url = `/api/orders/searchOrderItemList?${queryString}`;
+      const url = `${BASE_URL}/api/orders/searchOrderItemList?${queryString}`;
       console.log("url:", url);
       const fetchData = async () => {
         try {

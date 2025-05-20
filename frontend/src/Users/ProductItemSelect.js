@@ -9,6 +9,7 @@ import Modal from "react-modal";
 import ReactModal from "react-modal";
 import FileDownloadDisplay from "../File/FileDownloadDisplay";
 import { CircularProgress } from "@mui/material";
+import { BASE_URL } from "../config";
 
 export default function ProductItemSelect() {
   const navigate = useNavigate();
@@ -68,7 +69,7 @@ export default function ProductItemSelect() {
     //e.preventDefault();
     try {
       //const queryString = new URLSearchParams(params).toString();
-      const url = `/api/product/find/${parseInt(id)}`;
+      const url = `${BASE_URL}/api/product/find/${parseInt(id)}`;
 
       const response = await fetch(url); // URL của API
 

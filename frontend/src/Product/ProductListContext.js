@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { ProductsDispatchContext, ProductsContext } from "./ProductsContext";
 import numeral from "numeral";
 import FileDownloadDisplay from "../File/FileDownloadDisplay";
+import { BASE_URL } from "../config";
 
 export default function ProductListContext() {
   const dispatch = useContext(ProductsDispatchContext);
@@ -67,7 +68,7 @@ export default function ProductListContext() {
     //setLoading(false);
 
     try {
-      fetch(`/api/product/${id}`, {
+      fetch(`${BASE_URL}/api/product/${id}`, {
         method: "DELETE",
       })
         .then((response) => {
