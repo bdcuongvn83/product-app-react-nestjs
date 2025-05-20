@@ -79,13 +79,6 @@ export class ProductController {
     return new ResponseResultListDto(result.length, result);
   }
 
-  //   @Get(':id')
-  //  // @UsePipes(new ZodValidationPipe())
-  //   findProductById(@Param('id', new DefaultValuePipe('1'), ParseIntPipe) id: number){
-  //     console.log("id:" + id);
-  //     return `This action returns a #${id} cat`;
-  //   }
-
   @Get('find/:id')
   async findProductBy(
     @Param('id', new DefaultValuePipe('1'), ParseIntPipe) id: number,
