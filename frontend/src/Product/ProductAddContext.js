@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ReactDropdown from "react-dropdown";
 import { useLocation, useNavigate } from "react-router-dom";
+import BASE_URL from "../config";
 
 export default function ProductAddContext() {
   //form data contain all of input items on screen.
@@ -138,7 +139,7 @@ export default function ProductAddContext() {
 
     return new Promise((resovle, reject) => {
       try {
-        fetch("/api/product", {
+        fetch(`${BASE_URL}/api/product`, {
           method: "POST", // HTTP method
           // headers: {
           //   "Content-Type": "multipart/form-data", // Ensure the server understands the JSON format

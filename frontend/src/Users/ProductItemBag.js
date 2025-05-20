@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from "react";
 import numeral from "numeral";
 import { Add, Remove, Delete } from "@mui/icons-material";
 import FileDownloadDisplay from "../File/FileDownloadDisplay";
+import BASE_URL from "../config";
 
 export default function ProductItemBag() {
   const { id } = useParams();
@@ -187,7 +188,7 @@ export default function ProductItemBag() {
   function registerData(orderRequest) {
     return new Promise((resovle, reject) => {
       try {
-        fetch("/api/orders", {
+        fetch(`${BASE_URL}/api/orders`, {
           method: "POST", // HTTP method
           headers: {
             "Content-Type": "application/json", // Ensure the server understands the JSON format

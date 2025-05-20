@@ -54,7 +54,7 @@ export default function ProductListApp() {
     const fetchData = async () => {
       try {
         if (loading) {
-          const response = await fetch("/api/product/findall"); // URL của API
+          const response = await fetch(`${BASE_URL}/api/product/findall`); // URL của API
           const result = await response.json();
 
           //setProducts(result.data);

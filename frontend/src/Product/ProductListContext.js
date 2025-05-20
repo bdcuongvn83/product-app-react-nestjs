@@ -31,7 +31,7 @@ export default function ProductListContext() {
 
   function updateData(product) {
     try {
-      fetch("/api/product", {
+      fetch(`${BASE_URL}/api/product`, {
         method: "PUT", // HTTP method
         headers: {
           "Content-Type": "application/json", // Ensure the server understands the JSON format

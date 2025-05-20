@@ -2,7 +2,7 @@ import { useReducer, useEffect, useState } from "react";
 import ProductListContext from "./ProductListContext.js";
 import { ProductsContext, ProductsDispatchContext } from "./ProductsContext.js";
 import { useNavigate, useLocation } from "react-router-dom";
-
+import BASE_URL from "../config";
 //const initialTasks = { products: [] };
 
 export default function ProductAppContext() {
@@ -20,7 +20,7 @@ export default function ProductAppContext() {
     const fetchData = async () => {
       try {
         if (loading) {
-          const response = await fetch("/api/product/findall"); // URL của API
+          const response = await fetch(`${BASE_URL}/api/product/findall`); // URL của API
           const result = await response.json();
 
           setLoading(false);
