@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: nestjs-backend
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: node dist/main
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000 # Render sẽ tự override nếu cần

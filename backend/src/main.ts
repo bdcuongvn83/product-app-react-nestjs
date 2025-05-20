@@ -11,7 +11,8 @@ async function bootstrap() {
 
   // Kích hoạt CORS cho tất cả các nguồn (hoặc chỉ những nguồn cụ thể)
   app.enableCors({
-    origin: 'http://localhost:3001', // Thêm URL của React app nếu cần
+    //origin: 'http://localhost:3001', // Thêm URL của React app nếu cần
+    origin: process.env.CORS_ORIGIN || '*',
   });
 
   await app.listen(process.env.PORT ?? 3001);
