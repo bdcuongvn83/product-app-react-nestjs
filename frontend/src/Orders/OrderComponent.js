@@ -6,7 +6,7 @@ import OrdersContext, {
 } from "./OrdersContext.js";
 import { useNavigate, useLocation } from "react-router-dom";
 import OrderListComponent from "./OrderListComponent.js";
-import { BASE_URL } from "../config";
+import BASE_URL from "../config";
 //const initialTasks = { products: [] };
 
 export default function OrderComponent() {

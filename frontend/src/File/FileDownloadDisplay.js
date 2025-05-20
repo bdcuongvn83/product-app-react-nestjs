@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BASE_URL } from "../config";
+import BASE_URL from "../config";
 
 const FileDownloadDisplay = ({ docId, className, style, altText }) => {
   const [fileUrl, setFileUrl] = useState("");

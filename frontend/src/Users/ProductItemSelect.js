@@ -9,7 +9,7 @@ import Modal from "react-modal";
 import ReactModal from "react-modal";
 import FileDownloadDisplay from "../File/FileDownloadDisplay";
 import { CircularProgress } from "@mui/material";
-import { BASE_URL } from "../config";
+import BASE_URL from "../config";
 
 export default function ProductItemSelect() {
   const navigate = useNavigate();

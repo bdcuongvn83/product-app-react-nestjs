@@ -4,7 +4,7 @@ import { ProductsContext } from "../Product/ProductsContext.js";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import SearchIcon from "@mui/icons-material/Search";
-import { BASE_URL } from "../config";
+import BASE_URL from "../config";
 //const initialTasks = { products: [] };
 
 //ProductsCartContext

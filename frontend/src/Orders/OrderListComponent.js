@@ -7,7 +7,7 @@ import numeral from "numeral";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import FileDownloadDisplay from "../File/FileDownloadDisplay";
-import { BASE_URL } from "../config";
+import BASE_URL from "../config";
 
 export default function OrderListComponent() {
   const orders = useContext(OrdersContext) || [];
