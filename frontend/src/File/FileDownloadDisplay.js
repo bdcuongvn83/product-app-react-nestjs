@@ -22,7 +22,7 @@ const FileDownloadDisplay = ({ docId, className, style, altText }) => {
       const timestamp = new Date().getTime(); // Unique timestamp to bypass cache
       //const response = await fetch(`/api/filemanage/1?timestamp=${timestamp}`); // Fetch the file
       const downloadFileUrl = `${BASE_URL}/api/filemanage/${docId}?timestamp=${timestamp}`;
-      //console.log("downloadFileUrl:", downloadFileUrl);
+      console.log("downloadFileUrl:", downloadFileUrl);
 
       const response = await fetch(downloadFileUrl); // Fetch the file
 
@@ -31,8 +31,9 @@ const FileDownloadDisplay = ({ docId, className, style, altText }) => {
       }
 
       const blob = await response.blob(); // Parse the response as a Blob
-      //console.log("Blob received:", blob);
+      console.log("Blob received:", blob);
       const url = URL.createObjectURL(blob); // Create a Blob URL
+      console.log("Blob received url:", url);
       setFileUrl(url); // Update state with the Blob URL
     } catch (error) {
       console.error("Error downloading the file:", error);
