@@ -93,6 +93,7 @@ function App() {
         };
       case "RESET":
         console.log("tasksReducer RESET");
+        localStorage.setItem("cart", JSON.stringify([]));
         return {
           ...state,
           items: [],
