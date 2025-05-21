@@ -62,7 +62,8 @@ export default function ProductItemSelect() {
     return <h1>No product selected</h1>;
   }
   function isEmptyProduct(product) {
-    return Object.keys(product).length === 0;
+    //return Object.keys(product).length === 0;
+    return !product || Object.keys(product).length === 0;
   }
 
   async function findProductById(id) {
