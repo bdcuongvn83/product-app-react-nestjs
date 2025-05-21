@@ -145,7 +145,7 @@ export default function OrderListComponent() {
                   }
                 >
                   <span>
-                    <a href="#" onClick={(e) => showOrderItems(item)}>
+                    <a href="#" onClick={(e) => showOrderItems(item, e)}>
                       {item.id}
                     </a>
                   </span>
