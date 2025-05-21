@@ -128,7 +128,12 @@ function App() {
           connects to a <strong>MySQL</strong> database using the{" "}
           <strong>TypeORM</strong> library.
         </p>
-
+        <p>
+          Additionally, the project integrates with{" "}
+          <strong>Google Dialogflow</strong>, an AI-powered chatbot, to enhance
+          the user experience by allowing users to search for product
+          information more efficiently through natural conversation.
+        </p>
         <p>
           This project was created for educational and demonstration purposes,
           showcasing full-stack development with modern technologies.
