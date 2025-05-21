@@ -4,18 +4,34 @@ import BASE_URL from "../config";
 const FileDownloadDisplay = ({ docId, className, style, altText }) => {
   const [fileUrl, setFileUrl] = useState("");
   let isInitData = false;
+  // useEffect(() => {
+  //   return () => {
+  //     if (!isInitData) {
+  //       downloadFile(docId);
+  //       isInitData = true;
+  //     }
+  //     if (fileUrl) {
+  //       //console.log("URL.revokeObjectURL start docId:", docId);
+  //       URL.revokeObjectURL(fileUrl); // Release memory
+  //     }
+  //   };
+  // }, [fileUrl]);
+
   useEffect(() => {
-    return () => {
-      if (!isInitData) {
-        downloadFile(docId);
-        isInitData = true;
-      }
-      if (fileUrl) {
-        //console.log("URL.revokeObjectURL start docId:", docId);
-        URL.revokeObjectURL(fileUrl); // Release memory
+    const fetchData = async () => {
+      if (docId) {
+        await downloadFile(docId);
       }
     };
-  }, [fileUrl]);
+
+    fetchData();
+
+    return () => {
+      if (fileUrl) {
+        URL.revokeObjectURL(fileUrl);
+      }
+    };
+  }, [docId]); // docId thay vì fileUrl
 
   const downloadFile = async (docId) => {
     try {
@@ -32,6 +48,7 @@ const FileDownloadDisplay = ({ docId, className, style, altText }) => {
 
       const blob = await response.blob(); // Parse the response as a Blob
       console.log("Blob received:", blob);
+      console.log("Blob type:", blob.type);
       const url = URL.createObjectURL(blob); // Create a Blob URL
       console.log("Blob received url:", url);
       setFileUrl(url); // Update state with the Blob URL
