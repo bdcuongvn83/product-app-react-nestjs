@@ -19,6 +19,7 @@ const FileDownloadDisplay = ({ docId, className, style, altText }) => {
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log("fetchData downloadFile docId:", docId);
       if (docId) {
         await downloadFile(docId);
       }
