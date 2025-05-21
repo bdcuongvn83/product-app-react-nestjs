@@ -133,7 +133,15 @@ function App() {
           This project was created for educational and demonstration purposes,
           showcasing full-stack development with modern technologies.
         </p>
-
+        <p>
+          👉 For detailed project instructions and usage guide, please visit:
+          <a
+            href="https://github.com/bdcuongvn83/product-app-react-nestjs"
+            target="_blank"
+          >
+            Project Guide
+          </a>
+        </p>
         <p>
           For feedback, inquiries, or collaboration, feel free to contact me:
         </p>
@@ -248,7 +256,7 @@ function App() {
               </div>
               <div>
                 <div className="title">COPY RIGHT 2024 - DUC CUONG BUI</div>
-                {/* <Chatbot /> */}
+                <Chatbot />
               </div>
             </div>
           </div>
