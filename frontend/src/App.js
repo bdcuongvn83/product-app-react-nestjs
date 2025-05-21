@@ -117,7 +117,17 @@ function App() {
   }
 
   function About() {
-    return <h1>About Page</h1>;
+    return (
+      <>
+        <h1>About Me</h1>;
+        <p>
+          This is a simple demo eCommerce site built with React and RESTful API
+          powered by NestJS
+        </p>
+        <p>For feedback or inquiries, please contact me at: </p>
+        <a href="mailto:bdcuongvn83@gmail.com">bdcuongvn83@gmail.com</a>
+      </>
+    );
   }
 
   return (
@@ -129,15 +139,7 @@ function App() {
               <div className="left-group">
                 <div className="logo item">Logo</div>
                 <Link to="/about" className="item">
-                  About Me
-                  <p>
-                    This is a simple demo eCommerce site built with React and
-                    RESTful API powered by NestJS
-                  </p>
-                  <p>For feedback or inquiries, please contact me at: </p>
-                  <a href="mailto:bdcuongvn83@gmail.com">
-                    bdcuongvn83@gmail.com
-                  </a>
+                  About
                 </Link>
                 <div className="home item">
                   <Link to="/Home" className="item">
