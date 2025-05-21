@@ -119,13 +119,48 @@ function App() {
   function About() {
     return (
       <>
-        <h1>About Me</h1>;
+        <h1>About Project</h1>
         <p>
-          This is a simple demo eCommerce site built with React and RESTful API
-          powered by NestJS
+          This is a simple demo eCommerce website built using{" "}
+          <strong>React</strong> for the frontend and a{" "}
+          <strong>RESTful API</strong> powered by the{" "}
+          <strong>NestJS Framework</strong> for the backend. The application
+          connects to a <strong>MySQL</strong> database using the{" "}
+          <strong>TypeORM</strong> library.
         </p>
-        <p>For feedback or inquiries, please contact me at: </p>
-        <a href="mailto:bdcuongvn83@gmail.com">bdcuongvn83@gmail.com</a>
+
+        <p>
+          This project was created for educational and demonstration purposes,
+          showcasing full-stack development with modern technologies.
+        </p>
+
+        <p>
+          For feedback, inquiries, or collaboration, feel free to contact me:
+        </p>
+
+        <ul>
+          <li>
+            <strong>Author:</strong> Duc Cuong Bui
+          </li>
+          <li>
+            <strong>Email:</strong>{" "}
+            <a href="mailto:bdcuongvn83@gmail.com">bdcuongvn83@gmail.com</a>
+          </li>
+          <li>
+            <strong>GitHub Repository:</strong>
+            <a
+              href="https://github.com/bdcuongvn83/product-app-react-nestjs"
+              target="_blank"
+            >
+              github.com/bdcuongvn83/product-app-react-nestjs
+            </a>
+          </li>
+        </ul>
+
+        <p>
+          You can find detailed project documentation and source code at the
+          link above.
+        </p>
       </>
     );
   }
@@ -213,7 +248,7 @@ function App() {
               </div>
               <div>
                 <div className="title">COPY RIGHT 2024 - DUC CUONG BUI</div>
-                <Chatbot />
+                {/* <Chatbot /> */}
               </div>
             </div>
           </div>
