@@ -147,7 +147,7 @@ export class WebhookController {
                     type: 'info',
                     title: `We found ${products.length} products for the keyword "${keyword}"`,
                     subtitle: 'Click below to view more details.',
-                    actionLink: `${this.FRONTEND_URL}/Users/ProductItemSelect/${products[0].id}`,
+                    actionLink: `${this.FRONTEND_URL}/#/Users/ProductItemSelect/${products[0].id}`,
                   },
                 ],
                 [
@@ -156,7 +156,7 @@ export class WebhookController {
                     type: 'info',
                     title: `${product.productName} - $${product.price}`,
                     subtitle: `Click to view details`,
-                    actionLink: `${this.FRONTEND_URL}/Users/ProductItemSelect/${product.id}`,
+                    actionLink: `${this.FRONTEND_URL}/#/Users/ProductItemSelect/${product.id}`,
                   })),
                 ],
                 [
