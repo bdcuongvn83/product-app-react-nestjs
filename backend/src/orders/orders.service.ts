@@ -23,7 +23,7 @@ export class OrdersService {
   ) {}
 
   async insertOrder(orderRequest: OrderRequest): Promise<number> {
-    console.log('manager', this.dataSource.manager);
+    // console.log('manager', this.dataSource.manager);
     return await this.dataSource.manager.transaction(async (manager) => {
       //begin transaction
       //inser order
@@ -34,16 +34,16 @@ export class OrdersService {
       order.orderdate = new Date();
       order.status = 0; //new
       //const result: InsertResult = await this.orderRepository.insert(order);
-      console.log('manager.insert Order begin');
+      // console.log('manager.insert Order begin');
       const result: InsertResult = await manager.insert(Order, order);
-      console.log('manager.insert Order end');
+      // console.log('manager.insert Order end');
       // Access the generated id from the raw property
       const orderId = result.identifiers[0]?.id;
       if (!orderId) {
         throw new Error('Failed to retrieve the inserted orderId');
       }
 
-      console.log('orderRequest.items length', orderRequest.items.length);
+      // console.log('orderRequest.items length', orderRequest.items.length);
 
       //insert List orderitem
       for (const item of orderRequest.items) {
@@ -52,15 +52,15 @@ export class OrdersService {
         orderItem.price = item.price;
         orderItem.quantity = item.quantity;
         orderItem.productId = item.productId;
-        console.log(' manager.insert( OrderItem begin');
+        // console.log(' manager.insert( OrderItem begin');
 
         const itemResult: InsertResult = await manager.insert(
           OrderItem,
           orderItem,
         );
-        console.log('OrderItem inserted:', itemResult);
+        // console.log('OrderItem inserted:', itemResult);
         const orderItemId = itemResult.identifiers[0]?.id;
-        console.log(' manager.insert( OrderItem end orderItemId:', orderItemId);
+        // console.log(' manager.insert( OrderItem end orderItemId:', orderItemId);
         if (!orderItemId) {
           throw new Error('Failed to retrieve the inserted orderItemId');
         }
@@ -75,14 +75,14 @@ export class OrdersService {
   async deleteOrder(orderId: number): Promise<number> {
     return await this.dataSource.manager.transaction(async (entityManager) => {
       // Use the 'orderId' from the function parameter
-      console.log('Order ID:', orderId);
+      // console.log('Order ID:', orderId);
       // Your logic here
       const orderItems = await entityManager.find(OrderItem, {
         where: { orderId: orderId },
       });
       for (const item of orderItems) {
         await entityManager.remove(OrderItem, item);
-        console.log('remove OrderItem');
+        // console.log('remove OrderItem');
       }
 
       const order = await entityManager.findOne(Order, {
@@ -116,7 +116,7 @@ export class OrdersService {
       })
       .orderBy('order.id', 'ASC');
 
-    console.log(`Debug sql :  ${queryBuilder.getSql()}`);
+    // console.log(`Debug sql :  ${queryBuilder.getSql()}`);
 
     return queryBuilder.getMany();
   }
@@ -139,7 +139,7 @@ export class OrdersService {
       })
       .orderBy('item.id', 'ASC');
 
-    console.log(`Debug sql :  ${queryBuilder.getSql()}`);
+    // console.log(`Debug sql :  ${queryBuilder.getSql()}`);
 
     return queryBuilder.getMany();
   }

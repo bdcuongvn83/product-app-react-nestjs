@@ -59,12 +59,12 @@ export class ProductController {
     @Body() requestProduct: ProductRequest,
     @UploadedFile() file: Express.Multer.File,
   ): Promise<ResponseSuccessDto> {
-    console.log(
-      `productRequest:${JSON.stringify(JSON.stringify(requestProduct))}`,
-    );
+    // console.log(
+    //   `productRequest:${JSON.stringify(JSON.stringify(requestProduct))}`,
+    // );
 
-    console.log('File upload:', file);
-    console.log('Product data:', requestProduct);
+    // console.log('File upload:', file);
+    // console.log('Product data:', requestProduct);
 
     const generatedId = await this.productService.insert(requestProduct, file);
 
@@ -74,8 +74,8 @@ export class ProductController {
   @Get('findall')
   async findAll(): Promise<ResponseResultListDto> {
     const result = await this.productService.findAll();
-    console.log('result');
-    console.log(result);
+    // console.log('result');
+    // console.log(result);
     return new ResponseResultListDto(result.length, result);
   }
 
@@ -83,14 +83,14 @@ export class ProductController {
   async findProductBy(
     @Param('id', new DefaultValuePipe('1'), ParseIntPipe) id: number,
   ): Promise<Product | ResponseErrorDto> {
-    console.log('id:' + id);
+    // console.log('id:' + id);
     const product: Product = await this.productService.findOne(id);
     //   const result = JSON.parse(JSON.stringify(product));
     if (product == null) {
       return new ResponseErrorDto(404, 'Data not found');
     }
 
-    console.log(`product: ${JSON.stringify(product)}`);
+    // console.log(`product: ${JSON.stringify(product)}`);
 
     return product;
   }
@@ -112,7 +112,7 @@ export class ProductController {
       ? (operator as Operator)
       : undefined;
 
-    console.log('operatorEnum:', operatorEnum);
+    // console.log('operatorEnum:', operatorEnum);
     const productLst = await this.productService.searchProduct(
       categoryName,
       productName,
@@ -134,12 +134,12 @@ export class ProductController {
   ): Promise<ResponseSuccessDto> {
     //   const result = JSON.parse(JSON.stringify(product));
     //copy data to entity
-    console.log(
-      `productRequest:${JSON.stringify(JSON.stringify(productRequest))}`,
-    );
+    // console.log(
+    //   `productRequest:${JSON.stringify(JSON.stringify(productRequest))}`,
+    // );
 
     const product = await this.productService.update(productRequest);
-    console.log('update success product');
+    // console.log('update success product');
 
     return new ResponseSuccessDto(201, 'Update successfull', 1);
   }
@@ -150,7 +150,7 @@ export class ProductController {
     @Param('id', ParseIntPipe) id: number,
   ): Promise<ResponseSuccessDto> {
     const result = await this.productService.delete(id);
-    console.log('delete success product');
+    // console.log('delete success product');
 
     return new ResponseSuccessDto(201, 'Remove successfull', result.affected);
   }

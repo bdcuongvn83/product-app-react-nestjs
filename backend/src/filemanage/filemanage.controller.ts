@@ -21,8 +21,8 @@ export class FilemanageController {
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
-    console.log('file upload');
-    console.log(file);
+    // console.log('file upload');
+    // console.log(file);
     const generatedId = await this.filemanageService.saveFile(file);
 
     return new ResponseSuccessDto(201, 'Insert successfull', generatedId.id);
@@ -30,16 +30,16 @@ export class FilemanageController {
 
   @Get(':id')
   async findFile(@Param('id', ParseIntPipe) id: number, @Res() res: Response) {
-    console.log('file download begin');
+    // console.log('file download begin');
 
     const file = await this.filemanageService.getFile(id);
-    console.log('File Buffer:', file.buffer);
+    // console.log('File Buffer:', file.buffer);
 
     if (!file.buffer || file.buffer.length === 0) {
       res.status(404).send({ error: 'File not found' });
       return;
     }
-    console.log('file download');
+    // console.log('file download');
 
     res.setHeader('Content-Type', 'image/png');
     res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate'); // Disable caching
