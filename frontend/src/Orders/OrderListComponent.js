@@ -91,6 +91,7 @@ export default function OrderListComponent() {
   function showOrderItems(item, e) {
     // console.log("showOrderItems item:", item);
     // console.log(item);
+    e.preventDefault(); //ngan reload trang voi URL /#/ khong dung.
     setSelectedOrderId((preState) => item.id);
 
     // console.log("showOrderItems item.id:", item.id);
