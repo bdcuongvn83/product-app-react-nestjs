@@ -4,7 +4,9 @@ import ProductAddContext from "./Product/ProductAddContext";
 import ProductListApp from "./Users/ProductListApp";
 
 import React, { useEffect, useReducer, useState } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+// import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, Link } from "react-router-dom";
+
 import ProductItemSelect from "./Users/ProductItemSelect";
 import ProductItemBag from "./Users/ProductItemBag";
 import { ProductsCartContext } from "./Product/ProductsContext";
@@ -181,7 +183,7 @@ function App() {
   return (
     <ProductsCartContext.Provider value={{ cart, dispatch }}>
       <div className="main-layout">
-        <BrowserRouter>
+        <Router>
           <div className="main-header">
             <div className="main-header-container-flex">
               <div className="left-group">
@@ -265,7 +267,7 @@ function App() {
               </div>
             </div>
           </div>
-        </BrowserRouter>
+        </Router>
       </div>
     </ProductsCartContext.Provider>
   );
