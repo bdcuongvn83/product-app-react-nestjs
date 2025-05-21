@@ -22,7 +22,7 @@ export default function OrderListComponent() {
   // Fetch dữ liệu từ API NestJS
 
   useEffect(() => {
-    console.log("useEffect hook SelectedOrderId change");
+    // console.log("useEffect hook SelectedOrderId change");
     if (selectedOrderId != 0) {
       const params = {
         orderId: selectedOrderId,
@@ -30,18 +30,18 @@ export default function OrderListComponent() {
 
       const queryString = new URLSearchParams(params).toString();
       const url = `${BASE_URL}/api/orders/searchOrderItemList?${queryString}`;
-      console.log("url:", url);
+      // console.log("url:", url);
       const fetchData = async () => {
         try {
           //if (loading) {
-          console.log("useEffect hook fetch data change");
+          // console.log("useEffect hook fetch data change");
           const response = await fetch(url); // URL của API
           const result = await response.json();
 
           // setLoading(false);
           //const result2 = result.data.map((t) => ({ ...t, done: true }));
           //dispatch({ type: "replace", payload: result.data }); // Dùng dispatch để cập nhật reducer
-          console.log("searchOrderItemList:");
+          // console.log("searchOrderItemList:");
           //console.log(result.data);
 
           setItems((prestate) =>
@@ -50,8 +50,8 @@ export default function OrderListComponent() {
               subTotal: parseInt(item.quantity) * item.price,
             }))
           );
-          console.log("after search items:");
-          console.log(items);
+          // console.log("after search items:");
+          // console.log(items);
         } catch (error) {
           console.error("Error fetching data:", error);
         }
@@ -81,7 +81,7 @@ export default function OrderListComponent() {
       default:
         result = "None";
     }
-    console.log("getStatus value:", result);
+    // console.log("getStatus value:", result);
     return result;
   }
 
@@ -89,12 +89,12 @@ export default function OrderListComponent() {
     return format(date, "yyyy/MM/dd HH:mm");
   }
   function showOrderItems(item, e) {
-    console.log("showOrderItems item:", item);
-    console.log(item);
+    // console.log("showOrderItems item:", item);
+    // console.log(item);
     setSelectedOrderId((preState) => item.id);
 
-    console.log("showOrderItems item.id:", item.id);
-    console.log("showOrderItems SelectedOrderId:", selectedOrderId);
+    // console.log("showOrderItems item.id:", item.id);
+    // console.log("showOrderItems SelectedOrderId:", selectedOrderId);
   }
 
   return (

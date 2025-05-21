@@ -33,11 +33,11 @@ function App() {
   }, [cart.items]); // Chạy mỗi khi cart.items thay đổi
 
   function tasksReducer(state, action) {
-    console.log("action", action);
+    // console.log("action", action);
     switch (action.type) {
       case "ADD_ITEM":
         //case Add new/case add multi time on the same item.
-        console.log("tasksReducer ADD_ITEM");
+        // console.log("tasksReducer ADD_ITEM");
 
         const index = state.items.findIndex(
           (item) => item.id === action.payload.id
@@ -71,7 +71,7 @@ function App() {
       case "REPLACE_ITEM":
         //case Add quantity/Remove quantity/change Quantity
 
-        console.log("tasksReducer REPLACE_ITEM");
+        // console.log("tasksReducer REPLACE_ITEM");
 
         return {
           ...state,
@@ -79,7 +79,7 @@ function App() {
         };
 
       case "REMOVE_ITEM":
-        console.log("tasksReducer REMOVE_ITEM");
+        // console.log("tasksReducer REMOVE_ITEM");
         const newitems = state.items.filter(
           (item) => item.id !== action.payload.id
         );
@@ -92,7 +92,7 @@ function App() {
           items: newitems,
         };
       case "RESET":
-        console.log("tasksReducer RESET");
+        // console.log("tasksReducer RESET");
         localStorage.setItem("cart", JSON.stringify([]));
         return {
           ...state,
@@ -109,7 +109,7 @@ function App() {
     //console.log("XXXXXXXXXXX useEffect calculate CountCarts");
 
     setCountCart((prestate) => cart.items.length);
-    console.log(cart.items.length);
+    // console.log(cart.items.length);
   }, [cart.items]);
 
   function Home() {
@@ -129,7 +129,15 @@ function App() {
               <div className="left-group">
                 <div className="logo item">Logo</div>
                 <Link to="/about" className="item">
-                  About
+                  About Me
+                  <p>
+                    This is a simple demo eCommerce site built with React and
+                    RESTful API powered by NestJS
+                  </p>
+                  <p>For feedback or inquiries, please contact me at: </p>
+                  <a href="mailto:bdcuongvn83@gmail.com">
+                    bdcuongvn83@gmail.com
+                  </a>
                 </Link>
                 <div className="home item">
                   <Link to="/Home" className="item">

@@ -25,7 +25,7 @@ export default function OrderComponent() {
 
     const queryString = new URLSearchParams(params).toString();
     const url = `${BASE_URL}/api/orders/searchOrderList?${queryString}`;
-    console.log("url:", url);
+    // console.log("url:", url);
     const fetchData = async () => {
       try {
         if (loading) {

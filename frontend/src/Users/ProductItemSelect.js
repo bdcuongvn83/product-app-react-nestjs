@@ -28,19 +28,19 @@ export default function ProductItemSelect() {
   const [product, setProduct] = useState(state || {});
 
   useEffect(() => {
-    console.log("useEffect:");
+    // console.log("useEffect:");
     const fetchProduct = async () => {
-      console.log("fetchProduct:id", id);
+      // console.log("fetchProduct:id", id);
       //search for id
 
       const result = await findProductById(id);
-      console.log("result:", result);
+      // console.log("result:", result);
       setProduct(result);
-      console.log("findProduct:", product);
+      // console.log("findProduct:", product);
       setLoading(false);
     };
 
-    console.log("product:", product);
+    // console.log("product:", product);
     if (isEmptyProduct(product)) {
       fetchProduct();
     } else {
